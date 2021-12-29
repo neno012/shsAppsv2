@@ -1,0 +1,21 @@
+{
+  "name": "shsAppsv2",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://sunholidaystyle.com/api"
+    },
+    {
+      "path": "/CL",
+      "proxyUrl": "https://sunholidaystyle.com/CL/"
+    },
+    {
+      "path": "/",
+      "proxyUrl": "http://www.ip-api.com/"
+    }
+  ]
+}
