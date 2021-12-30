@@ -1,0 +1,26 @@
+page-hoteldetail {
+  .ratestyle {
+    border: 0.5px solid #ff6600;
+    border-radius: 10px;
+    margin: 3px;
+    padding: 5px;
+  }
+  .header-banner {
+    height: 200px;
+    // min-height: 200px;
+    background: #ff6600;
+  }
+
+  .slide-zoom {
+    // height:200px;
+    width: 100%;
+    // overflow:hidden;
+  }
+
+  // ion-slides {
+  //   height: 150px;
+  //   position: relative;
+  //   top: 50%;
+  //   transform: translate(0, -50%);
+  // }
+}

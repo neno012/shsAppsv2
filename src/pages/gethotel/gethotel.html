@@ -1,0 +1,228 @@
+<!--
+  Generated template for the GethotelPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>Form Booking</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:#f2f2f2;">
+  <ion-card class="adv-map" *ngIf="jsonhotelrecheck">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src={{hoteldetailData.data.image}} onerror="this.src='../../assets/imgs/logoshadow.png'">
+      </ion-avatar>
+      <div
+        *ngIf="jsonhotelrecheck.data.hotel.categoryCode === '1EST' || jsonhotelrecheck.data.hotel.categoryCode === '1LUX' 
+        || jsonhotelrecheck.data.hotel.categoryCode === 'APTH' || jsonhotelrecheck.data.hotel.categoryCode === 'HS'">
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelrecheck.data.hotel.categoryCode === 'H1_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="jsonhotelrecheck.data.hotel.categoryCode === '2EST' || jsonhotelrecheck.data.hotel.categoryCode === '2LUX' 
+        || jsonhotelrecheck.data.hotel.categoryCode === 'APTH2' || jsonhotelrecheck.data.hotel.categoryCode === 'HS2' 
+        || jsonhotelrecheck.data.hotel.categoryCode === 'H2S'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelrecheck.data.hotel.categoryCode === 'H2_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="jsonhotelrecheck.data.hotel.categoryCode === '3EST' || jsonhotelrecheck.data.hotel.categoryCode === '3LUX' 
+        || jsonhotelrecheck.data.hotel.categoryCode === 'APTH3' || jsonhotelrecheck.data.hotel.categoryCode === 'HS3' 
+        || jsonhotelrecheck.data.hotel.categoryCode === 'H3S'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelrecheck.data.hotel.categoryCode === 'H3_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="jsonhotelrecheck.data.hotel.categoryCode === '4EST' || jsonhotelrecheck.data.hotel.categoryCode === '4LUX' 
+        || jsonhotelrecheck.data.hotel.categoryCode === 'APTH4' || jsonhotelrecheck.data.hotel.categoryCode === 'HS4'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelrecheck.data.hotel.categoryCode === 'H4_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="jsonhotelrecheck.data.hotel.categoryCode === '5EST' || jsonhotelrecheck.data.hotel.categoryCode === '5LUX' 
+        || jsonhotelrecheck.data.hotel.categoryCode === 'APTH5' || jsonhotelrecheck.data.hotel.categoryCode === 'HS5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelrecheck.data.hotel.categoryCode === 'CHUES'">
+        <span>Hostel</span>
+      </div>
+      <div
+        *ngIf="jsonhotelrecheck.data.hotel.categoryCode === '1LL' || jsonhotelrecheck.data.hotel.categoryCode === '2LL' 
+        || jsonhotelrecheck.data.hotel.categoryCode === '3LL' || jsonhotelrecheck.data.hotel.categoryCode === '4LL' 
+        || jsonhotelrecheck.data.hotel.categoryCode === '5LL'">
+        <span>Apartment</span>
+      </div>
+      <span>{{jsonhotelrecheck.data.hotel.name}}</span><br>
+      <span>{{hoteldetailData.data.address}}</span><br>
+    </ion-item>
+    <ion-item *ngFor="let room of jsonhotelrecheck.data.hotel.rooms" class="ion-text-justify">
+      <b class="ion-text-capitalize">{{room.name}}</b>
+      <div *ngFor="let rate of room.rates">
+        <div *ngFor="let cancelation of rate.cancellationPolicies">
+          <div class="ratestyle">
+            <b class="ion-text-capitalize">{{rate.boardName}}</b><br>
+            <i *ngIf="rate.rateClass === 'NRF'">Non Refundable</i>
+            <i *ngIf="rate.rateClass === 'NOR'">Refundable</i>
+            <br><b style="color:#ff6600;">{{getPoint(rate.net)}} Point</b>
+            <br><i style="color:#ff6600;">Cancellation Policy : {{getPoint(rate.net)}} Point</i>
+            <br><i style="color:#ff6600;">from {{cancelation.from | date: 'dd MMMM yyyy'}}</i>
+            <!-- <ion-datetime {{cancelation.from}} display-timezone="utc"></ion-datetime> -->
+
+          </div>
+        </div>
+    </div>
+    </ion-item>
+  </ion-card>
+  <ion-card class="adv-map" *ngIf="jsonhotelbookable">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{hoteldetailData.data.image}}" onerror="this.src='../../assets/imgs/logoshadow.png'">
+      </ion-avatar>
+      <div
+        *ngIf="jsonhotelbookable.hotelcategory === '1EST' || jsonhotelbookable.hotelcategory === '1LUX' 
+        || jsonhotelbookable.hotelcategory === 'APTH' || jsonhotelbookable.hotelcategory === 'HS'">
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelbookable.hotelcategory === 'H1_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="jsonhotelbookable.hotelcategory === '2EST' || jsonhotelbookable.hotelcategory === '2LUX' 
+        || jsonhotelbookable.hotelcategory === 'APTH2' || jsonhotelbookable.hotelcategory === 'HS2' 
+        || jsonhotelbookable.hotelcategory === 'H2S'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelbookable.hotelcategory === 'H2_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="jsonhotelbookable.hotelcategory === '3EST' || jsonhotelbookable.hotelcategory === '3LUX' 
+        || jsonhotelbookable.hotelcategory === 'APTH3' || jsonhotelbookable.hotelcategory === 'HS3' 
+        || jsonhotelbookable.hotelcategory === 'H3S'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelbookable.hotelcategory === 'H3_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="jsonhotelbookable.hotelcategory === '4EST' || jsonhotelbookable.hotelcategory === '4LUX' 
+        || jsonhotelbookable.hotelcategory === 'APTH4' || jsonhotelbookable.hotelcategory === 'HS4'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelbookable.hotelcategory === 'H4_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="jsonhotelbookable.hotelcategory === '5EST' || jsonhotelbookable.hotelcategory === '5LUX' 
+        || jsonhotelbookable.hotelcategory === 'APTH5' || jsonhotelbookable.hotelcategory === 'HS5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="jsonhotelbookable.hotelcategory === 'CHUES'">
+        <span>Hostel</span>
+      </div>
+      <div
+        *ngIf="jsonhotelbookable.hotelcategory === '1LL' || jsonhotelbookable.hotelcategory === '2LL' 
+        || jsonhotelbookable.hotelcategory === '3LL' || jsonhotelbookable.hotelcategory === '4LL' 
+        || jsonhotelbookable.hotelcategory === '5LL'">
+        <span>Apartment</span>
+      </div>
+      <span>{{jsonhotelbookable.hotelname}}</span><br>
+      <span>{{hoteldetailData.data.address}}</span><br>
+    </ion-item>
+    <ion-item class="ion-text-justify">
+      <b class="ion-text-capitalize">{{jsonhotelbookable.roomname}}</b>
+      <!-- <div *ngFor="let cancelation1 of jsonhotelbookable.cancellationPolicies"> -->
+      <div class="ratestyle">
+        <b class="ion-text-capitalize">{{jsonhotelbookable.boardname}}</b><br>
+        <i *ngIf="jsonhotelbookable.rateclass === 'NRF'">Non Refundable</i>
+        <i *ngIf="jsonhotelbookable.rateclass === 'NOR'">Refundable</i>
+        <br><b style="color:#ff6600;">{{getPoint(jsonhotelbookable.net)}} Point</b>
+        <br><i style="color:#ff6600;">Cancellation Policy : {{getPoint(jsonhotelbookable.net)}} Point</i>
+        <br><i style="color:#ff6600;">from {{jsonhotelbookable.cancelfrom | date: 'dd MMMM yyyy'}}</i>
+      </div>
+      <!-- </div> -->
+    </ion-item>
+  </ion-card>
+  <div padding>
+    Customer Contact Information :
+  </div>
+  <form (ngSubmit)="confHotel()">
+    <ion-card class="adv-map">
+      <ion-item class="border-bottom">
+        <ion-label>Special Request</ion-label>
+        <ion-input [(ngModel)]="specreq" [ngModelOptions]="{standalone: true}" type="text">
+        </ion-input>
+      </ion-item>
+      <div *ngFor="let rooms of jumroom;let idx = index">
+        Room {{idx+1}}
+        <ion-item class="border-bottom">
+          <ion-label>First Name</ion-label>
+          <ion-input [(ngModel)]="rooms.conFirstName" [ngModelOptions]="{standalone: true}" type="text" required>
+          </ion-input>
+        </ion-item>
+        <ion-item class="border-bottom">
+          <ion-label>Last Name</ion-label>
+          <ion-input [(ngModel)]="rooms.conLastName" [ngModelOptions]="{standalone: true}" type="text" required>
+          </ion-input>
+        </ion-item>
+      </div>
+    </ion-card>
+    <div padding style="margin-top:-5%;">
+      <button ion-button round block type="submit" class="grad">
+        <ion-icon name="cart"></ion-icon>&nbsp;&nbsp;Book Hotel
+      </button>
+    </div>
+  </form>
+</ion-content>

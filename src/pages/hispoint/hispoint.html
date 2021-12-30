@@ -1,0 +1,31 @@
+<!--
+  Generated template for the HispointPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>History Point</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:#f2f2f2;">
+  <ion-card padding *ngFor="let history of result;"
+  (click)="showDetails(history.remarkshis,history.datehis,history.startpoint,history.usepoint,history.endpoint)">
+    <div class="card-content">
+      <!-- <b>{{payment.remarkspay}}</b><br> -->
+      <b *ngIf="history.status === '0'" class="kurang">Kurang Point (-)</b>
+      <b *ngIf="history.status === '1'" class="tambah">Tambah Point (+)</b>
+      <br>
+      <br>
+      <span class="grad7" style="float: right"> Klik for Detail </span>
+      Tanggal   : {{history.datehis | date: 'dd MMM yyyy'}} <br>
+      Point     : {{history.startpoint }} <br>
+      Use Point : {{history.usepoint }}<br>
+      End Point : {{history.endpoint }}<br>
+      <!-- End : {{history.endpoint }}<br>
+      End : {{history.endpoint }}<br> -->
+    </div>
+  </ion-card>
+</ion-content>

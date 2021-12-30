@@ -1,0 +1,40 @@
+page-shscard {
+  .grad1 {
+    background-image: url("../../assets/imgs/shscard.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: #292b2a;
+  }
+
+  .nomem {
+    font-family: "audimat-regular-webfont";
+    font-size: 200%;
+    color: #d4af37;
+    margin-top: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .namemem {
+    font-family: "audimat-regular-webfont";
+    font-size: 90%;
+    color: #ffffff;
+    margin-top: -7.5%;
+    text-align: right;
+  }
+
+  .validthru {
+    font-family: "audimat-regular-webfont";
+    font-size: 90%;
+    color: #ffffff;
+    margin-top: -7.5%;
+    text-align: left;
+  }
+
+  .qr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

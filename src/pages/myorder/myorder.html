@@ -1,0 +1,436 @@
+<!--
+  Generated template for the MyorderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>Flight Order</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:#f2f2f2;">
+  <ion-refresher slot="fixed" (ionRefresh)="reSearch($event)">
+    <ion-refresher-content pullingIcon="arrow-round-down" pullingText="Pull to refresh" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngIf="status === 3">
+    <ion-item>
+      <button ion-button outline block icon-start color="danger" style="padding:10%">
+        <ion-icon name="hand"></ion-icon> You Don't Have Any Order
+      </button>
+    </ion-item>
+  </ion-card>
+  <ion-card *ngFor="let order of results" class="grad">
+    <div *ngIf="order.result.all_order_type === 'hotel'">
+      <i style="color:red;font-size:50%;" item-right>&nbsp;&nbsp;{{order.result.order_id}}</i>
+      <div *ngFor="let result of order.result.order__cart_detail">
+        <ion-item>
+          <ion-thumbnail item-start text-center>
+            <img src="../../assets/imgs/hotel.png">
+            <b style="color: darkgreen">{{order.result.order_id}}</b>
+          </ion-thumbnail>
+          <div *ngIf="order.result.payment_status === 'checkout'">
+            <div *ngIf="result.detail.order_expire_datetime <= todayDate ">
+              <button ion-button color="danger" outline>EXPIRED</button>
+              <b style="color:darkgreen;">{{getPoint(result.customer_price)}} Point</b>
+            </div>
+            <div *ngIf="result.detail.order_expire_datetime > todayDate ">
+              <button ion-button outline>CHECKOUT</button>
+              <b style="color:darkgreen;">{{getPoint(result.customer_price)}} Point</b>
+            </div>
+          </div>
+          <div *ngIf="order.result.payment_status === 'shoppingcart'">
+            <button ion-button color="dark" outline>SHOPPING CART</button>
+            <b style="color:darkgreen;">{{getPoint(result.customer_price)}} Point</b>
+          </div>
+          <div *ngIf="order.result.payment_status === 'paid'">
+            <button ion-button color="secondary" outline>ISSUED</button>
+            <b style="color:darkgreen;">{{getPoint(result.customer_price)}} Point</b>
+          </div>
+          <p style="color:red;">
+            <ion-icon name="alarm"></ion-icon> Limit :
+            {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}} GMT+7(WIB)
+          </p>
+          <p>{{result.order_name}}<br>{{result.order_name_detail}}<br>Check In
+            {{result.detail.checkin | date: "d MMM yyyy"}} ({{result.detail.nights}} nights)</p>
+        </ion-item>
+        <div class="item item-text-wrap" *ngFor="let passanger of result.passanger">
+          <p>&nbsp;&nbsp;
+            Order By : <ion-icon name="person"></ion-icon> {{passanger.account_salutation_name}}
+            {{passanger.account_first_name}} {{passanger.account_last_name}}
+          </p>
+        </div>
+        <div *ngIf="order.result.payment_status === 'checkout'">
+          <div *ngIf="result.detail.order_expire_datetime > todayDate ">
+            <button ion-button round block color="shscolor" icon-start>
+              <ion-icon name="done-all"></ion-icon> ISSUED
+            </button>
+          </div>
+        </div>
+        <div *ngIf="order.result.payment_status === 'shoppingcart'">
+          <div *ngIf="result.detail.order_expire_datetime > todayDate ">
+            <button ion-button round block color="danger" icon-start>
+              <ion-icon name="trash"></ion-icon> DELETE ORDER
+            </button>
+            <button ion-button round block color="shssecondcolor" icon-start>
+              <ion-icon name="checkmark"></ion-icon> CHECKOUT ORDER
+            </button>
+          </div>
+        </div>
+        <div *ngIf="order.result.payment_status === 'paid'">
+          <div *ngIf="result.detail.checkin <= todayDate ">
+            <button ion-button round block color="shscolor" icon-start>
+              <ion-icon name="download"></ion-icon> DOWNLOAD INVOICE
+            </button>
+          </div>
+          <div *ngIf="result.detail.checkin > todayDate ">
+            <button ion-button round block color="shscolor" icon-start>
+              <ion-icon name="send"></ion-icon> SENT EMAIL E-VOUCHER
+            </button>
+            <button ion-button round block color="shscolor" icon-start>
+              <ion-icon name="download"></ion-icon> DOWNLOAD E-VOUCHER
+            </button>
+            <button ion-button round block color="shscolor" icon-start>
+              <ion-icon name="download"></ion-icon> DOWNLOAD INVOICE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="order.result.all_order_type === 'flight'">
+      <i style="color:red;font-size:50%;" item-right>&nbsp;&nbsp;{{order.result.order_id}}</i>
+      <div *ngFor="let result of order.result.order__cart_detail">
+        <div *ngIf="result.order_type === 'flight'">
+
+          <div>
+            <ion-item>
+              <div>
+                <button ion-button color="shscolor" outline round padding style="font-size:100%;" class="grad">
+                  <b style="color:darkgreen;">{{result.detail.booking_code}}</b>&nbsp;&nbsp;&nbsp;<img
+                    src="../../assets/imgs/airplane.png" style="width:10%;">&nbsp;&nbsp;&nbsp;<b
+                    style="color:darkgreen;">
+                    Total : {{getPoint(order.result.total_customer_price)}} Point</b>
+                </button>
+              </div>
+              <p>
+                <b>
+                  {{result.detail.departure_city}} -
+                  {{result.detail.arrival_city}} || {{result.order_name_detail}}<br>{{result.detail.depart_airport}}
+                  {{result.detail.departure_time | date: "d MMM yyyy, HH:mm"}}<br>{{result.detail.arrival_airport}}
+                  {{result.detail.arrival_time | date: "d MMM yyyy, HH:mm"}}
+                </b>
+              </p>
+              <div *ngFor="let flightsegment of result.detail.flight_segment">
+                <div *ngIf="flightsegment.via !== ''">
+                    <i>Transit : </i><br>
+                    <p *ngFor="let flightinfo of flightsegment.flight_info">
+                      <b>{{flightinfo.flight_no}} => {{flightinfo.dep_airport}}({{flightinfo.dep_time_full | date: "d MMM yyyy, HH:mm"}}) - {{flightinfo.arr_airport}}({{flightinfo.arr_time_full | date: "d MMM yyyy, HH:mm"}})</b>
+                    </p>
+                </div>
+              </div>
+              <p *ngFor="let passanger of result.passanger">
+                <b *ngIf="passanger.passenger_age_group != 'infant'">
+                  <ion-icon name="person"></ion-icon> {{passanger.passenger_name}} | <ion-icon name="briefcase">
+                  </ion-icon>
+                  {{passanger.passanger_baggage}}kg<br>
+                  <ion-icon name="pricetag"></ion-icon>
+                  {{passanger.passenger_ticket_number}} | {{passanger.passenger_age_group}}
+                </b>
+                <b *ngIf="passanger.passenger_age_group == 'infant'">
+                  <ion-icon name="person"></ion-icon> {{passanger.passenger_name}}<br>
+                  <ion-icon name="pricetag"></ion-icon>
+                  {{passanger.passenger_ticket_number}} | {{passanger.passenger_age_group}}
+                </b>
+              </p>
+              <div *ngIf="order.result.payment_status === 'checkout'" text-center>
+                <div *ngIf="result.detail.order_expire_datetime > todayDate ">
+                  <ion-row>
+                    <ion-col col-6>
+                      <button ion-button round color="secondary" class="btnbor" icon-start
+                        (click)="issOrder(order.result.order_id,idm,konv,order.token,order.result.total_customer_price)">
+                        <img src="../../assets/imgs/issued.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Issued
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" color="danger" icon-start
+                        (click)="delOrder(order.result.order_id,order.token)">
+                        <img src="../../assets/imgs/trash.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Delete
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+              <div *ngIf="order.result.payment_status === 'shoppingcart'">
+                <div *ngIf="result.detail.order_expire_datetime > todayDate ">
+                  <ion-row>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" color="danger" icon-start
+                        (click)="delOrder(order.result.order_id,order.token)">
+                        <img src="../../assets/imgs/trash.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Delete
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" color="shssecondcolor" icon-start
+                        (click)="checkOrder(order.result.order_id,order.token)">
+                        <img src="../../assets/imgs/checkout.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Checkout
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+              <div *ngIf="order.result.payment_status === 'paid'" text-center>
+                <div *ngIf="result.detail.departure_time <= todayDate ">
+                  <ion-row>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="sentInvoice(idm,result.order_detail_id,order.result.order_id,konv)">
+                        <img src="../../assets/imgs/email.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="downInvoice(idm,result.order_detail_id,order.result.order_id,konv,result.detail.booking_code)">
+                        <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div *ngIf="result.detail.departure_time > todayDate ">
+                  <ion-row>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="sentEticket(idm,result.order_detail_id,order.result.order_id,konv)">
+                        <img src="../../assets/imgs/email.png" style="width:20%;">&nbsp;&nbsp;&nbsp;E-Ticket
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="sentInvoice(idm,result.order_detail_id,order.result.order_id,konv)">
+                        <img src="../../assets/imgs/email.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="downEticket(idm,result.order_detail_id,order.result.order_id,konv,result.detail.booking_code)">
+                        <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;E-Ticket
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="downInvoice(idm,result.order_detail_id,order.result.order_id,konv,result.detail.booking_code)">
+                        <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+              <div *ngIf="order.result.payment_status === 'checkout'">
+                <div *ngIf="result.detail.order_expire_datetime <= todayDate ">
+                  <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+                    <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                        {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}}
+                        GMT+7(WIB)</b><br><b style="color:red">EXPIRED</b></ion-icon>
+                  </button>
+                </div>
+                <div *ngIf="result.detail.order_expire_datetime > todayDate ">
+                  <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+                    <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                        {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}}
+                        GMT+7(WIB)</b><br><b style="color:blue">CHECKOUT</b></ion-icon>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="order.result.payment_status === 'shoppingcart'">
+                <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+                  <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                      {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}}
+                      GMT+7(WIB)</b><br><b style="color:black">SHOPPING CART</b></ion-icon>
+                </button>
+              </div>
+              <div *ngIf="order.result.payment_status === 'paid'">
+                <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+                  <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                      {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}}
+                      GMT+7(WIB)</b><br><b style="color:green">ISSUED</b></ion-icon>
+                </button>
+              </div>
+            </ion-item>
+            <!-- <div *ngIf="order.result.payment_status === 'paid' && result.detail.ticket_status === 'booked'" padding
+              text-justify>
+              <b>Noted : Apabila ada kendala, silahkan hubungi member service kami.</b>
+            </div> -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="order.result.all_order_type === 'flight,insurance'">
+      <i style="color:red;font-size:50%;" item-right>&nbsp;&nbsp;{{order.result.order_id}}</i>
+      <div *ngFor="let result of order.result.order__cart_detail">
+        <div *ngIf="result.order_type === 'flight'">
+
+          <div>
+            <ion-item>
+              <div>
+                <button ion-button color="shscolor" outline round padding style="font-size:100%;" class="grad">
+                  <b style="color:darkgreen;">{{result.detail.booking_code}}</b>&nbsp;&nbsp;&nbsp;<img
+                    src="../../assets/imgs/airplane.png" style="width:10%;">&nbsp;&nbsp;&nbsp;<b
+                    style="color:darkgreen;">
+                    Total : {{getPoint(order.result.total_customer_price)}} Point</b>
+                </button>
+              </div>
+              <p>
+                <b>
+                  {{result.detail.departure_city}} -
+                  {{result.detail.arrival_city}} || {{result.order_name_detail}}<br>{{result.detail.depart_airport}}
+                  {{result.detail.departure_time | date: "d MMM yyyy, HH:mm"}}<br>{{result.detail.arrival_airport}}
+                  {{result.detail.arrival_time | date: "d MMM yyyy, HH:mm"}}
+                </b>
+              </p>
+              <div *ngIf="flightsegment.via !== ''">
+                <i>Transit : </i><br>
+                <p *ngFor="let flightinfo of flightsegment.flight_info">
+                  <b>{{flightinfo.flight_no}} => {{flightinfo.dep_airport}}({{flightinfo.dep_time_full | date: "d MMM yyyy, HH:mm"}}) - {{flightinfo.arr_airport}}({{flightinfo.arr_time_full | date: "d MMM yyyy, HH:mm"}})</b>
+                </p>
+              </div>
+              <p *ngFor="let passanger of result.passanger">
+                <b *ngIf="passanger.passenger_age_group != 'infant'">
+                  <ion-icon name="person"></ion-icon> {{passanger.passenger_name}} | <ion-icon name="briefcase">
+                  </ion-icon>
+                  {{passanger.passanger_baggage}}kg<br>
+                  <ion-icon name="pricetag"></ion-icon>
+                  {{passanger.passenger_ticket_number}} | {{passanger.passenger_age_group}}
+                </b>
+                <b *ngIf="passanger.passenger_age_group == 'infant'">
+                  <ion-icon name="person"></ion-icon> {{passanger.passenger_name}}<br>
+                  <ion-icon name="pricetag"></ion-icon>
+                  {{passanger.passenger_ticket_number}} | {{passanger.passenger_age_group}}
+                </b>
+              </p>
+              <div *ngIf="order.result.payment_status === 'checkout'" text-center>
+                <div *ngIf="result.detail.order_expire_datetime > todayDate ">
+                  <ion-row>
+                    <ion-col col-6>
+                      <button ion-button round color="secondary" class="btnbor" icon-start
+                        (click)="issOrder(order.result.order_id,idm,konv,order.token,order.result.total_customer_price)">
+                        <img src="../../assets/imgs/issued.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Issued
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" color="danger" icon-start
+                        (click)="delOrder(order.result.order_id,order.token)">
+                        <img src="../../assets/imgs/trash.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Delete
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+              <div *ngIf="order.result.payment_status === 'shoppingcart'">
+                <div *ngIf="result.detail.order_expire_datetime > todayDate ">
+                  <ion-row>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" color="danger" icon-start
+                        (click)="delOrder(order.result.order_id,order.token)">
+                        <img src="../../assets/imgs/trash.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Delete
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" color="shssecondcolor" icon-start
+                        (click)="checkOrder(order.result.order_id,order.token)">
+                        <img src="../../assets/imgs/checkout.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Checkout
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+              <div *ngIf="order.result.payment_status === 'paid'" text-center>
+                <div *ngIf="result.detail.departure_time <= todayDate ">
+                  <ion-row>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="sentInvoice(idm,result.order_detail_id,order.result.order_id,konv)">
+                        <img src="../../assets/imgs/email.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="downInvoice(idm,result.order_detail_id,order.result.order_id,konv,result.detail.booking_code)">
+                        <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div *ngIf="result.detail.departure_time > todayDate ">
+                  <ion-row>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="sentEticket(idm,result.order_detail_id,order.result.order_id,konv)">
+                        <img src="../../assets/imgs/email.png" style="width:20%;">&nbsp;&nbsp;&nbsp;E-Ticket
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="sentInvoice(idm,result.order_detail_id,order.result.order_id,konv)">
+                        <img src="../../assets/imgs/email.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="downEticket(idm,result.order_detail_id,order.result.order_id,konv,result.detail.booking_code)">
+                        <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;E-Ticket
+                      </button>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button round class="btnbor" icon-start
+                        (click)="downInvoice(idm,result.order_detail_id,order.result.order_id,konv,result.detail.booking_code)">
+                        <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+              <div *ngIf="order.result.payment_status === 'checkout'">
+                <div *ngIf="result.detail.order_expire_datetime <= todayDate ">
+                  <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+                    <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                        {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}}
+                        GMT+7(WIB)</b><br><b style="color:red">EXPIRED</b></ion-icon>
+                  </button>
+                </div>
+                <div *ngIf="result.detail.order_expire_datetime > todayDate ">
+                  <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+                    <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                        {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}}
+                        GMT+7(WIB)</b><br><b style="color:blue">CHECKOUT</b></ion-icon>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="order.result.payment_status === 'shoppingcart'">
+                <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+                  <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                      {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}}
+                      GMT+7(WIB)</b><br><b style="color:black">SHOPPING CART</b></ion-icon>
+                </button>
+              </div>
+              <div *ngIf="order.result.payment_status === 'paid'">
+                <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+                  <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                      {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}}
+                      GMT+7(WIB)</b><br><b style="color:green">ISSUED</b></ion-icon>
+                </button>
+              </div>
+            </ion-item>
+            <!-- <div *ngIf="order.result.payment_status === 'paid' && result.detail.ticket_status === 'booked'" padding
+              text-justify>
+              <b>Noted : Apabila ada kendala, silahkan hubungi member service kami.</b>
+            </div> -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </ion-card>
+</ion-content>

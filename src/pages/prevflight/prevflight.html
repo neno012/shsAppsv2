@@ -1,0 +1,63 @@
+<!--
+  Generated template for the PrevflightPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>Preview Flight</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="adv-map">
+    <ion-item *ngFor="let orderdata of myorder">
+      <ion-avatar item-start>
+        <img src="{{orderdata.order_photo}}">
+      </ion-avatar>
+      <h3>{{orderdata.order_name_detail}}</h3>
+      <h3>({{orderdata.detail.departure_city}}) {{orderdata.detail.departure_time}} <ion-icon name="plane"></ion-icon>
+        ({{orderdata.detail.arrival_city}}) {{orderdata.detail.arrival_time}}</h3>
+      <h3><b style="color: red;">Time Limit : {{orderdata.order_expire_datetime | date : "dd MMMM y HH:mm:ss"}}</b></h3>
+      <div *ngIf="orderdata.detail.passengers.adult != null">
+        <h3 *ngFor="let adult of orderdata.detail.passengers.adult">
+          {{adult.title}} {{adult.first_name}} {{adult.last_name}}<br>
+          <ion-icon name="briefcase"></ion-icon> {{adult.check_in_baggage}}
+          <div *ngIf="adult.check_in_baggage_return != null">
+            <ion-icon name="briefcase"></ion-icon> {{adult.check_in_baggage_return}}
+          </div>
+        </h3>
+      </div>
+      <div *ngIf="orderdata.detail.passengers.child != null">
+        <h3 *ngFor="let child of orderdata.detail.passengers.child">
+          {{child.title}} {{child.first_name}} {{child.last_name}}<br>
+          <ion-icon name="briefcase"></ion-icon> {{child.check_in_baggage}}
+          <div *ngIf="child.check_in_baggage_return != null">
+            <ion-icon name="briefcase"></ion-icon> {{child.check_in_baggage_return}}
+          </div>
+        </h3>
+      </div>
+      <div *ngIf="orderdata.detail.passengers.infant != null">
+        <h3 *ngFor="let infant of orderdata.detail.passengers.infant">
+          {{infant.title}} {{infant.first_name}} {{infant.last_name}}
+        </h3>
+      </div>
+    </ion-item>
+    <b style="color:#ff6600;margin-left: 5%;margin-bottom: 5%;">{{getPoint(myresult.myorder.total)}} Point</b>
+  </ion-card>
+  <div padding style="margin-top:-5%;">
+    <form (ngSubmit)="checkoutForm()">
+      <button ion-button round block type="submit" class="grad">
+        <ion-icon name="checkmark-circle"></ion-icon>&nbsp;&nbsp;Checkout Order
+      </button>
+    </form>
+  </div>
+  <div padding style="margin-top:-5%;">
+    <form (ngSubmit)="deleteForm()">
+      <button ion-button round block type="submit" class="grad1">
+        <ion-icon name="trash"></ion-icon>&nbsp;&nbsp;Delete Order
+      </button>
+    </form>
+  </div>
+</ion-content>

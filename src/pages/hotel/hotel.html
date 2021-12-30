@@ -1,0 +1,117 @@
+<!--
+  Generated template for the HotelPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>Hotel Search</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="animated fadeIn common-bg" no-bounce>
+  <form class="list-form" (ngSubmit)="hotelSearch()">
+    <ion-card>
+      <ion-input type="hidden" [(ngModel)]="hotelcode" name="hotelcode"></ion-input>
+      <ion-input type="hidden" [(ngModel)]="hotelcategory" name="hotelcategory"></ion-input>
+      <ion-item (click)="OpenHotel()">
+        <img src="../../assets/imgs/hoteladd.png" style="width:5%;margin-left:-2%;" item-left>
+        <ion-label>{{hotelname}}</ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item (click)="inCal()">
+        <img src="../../assets/imgs/check-in.png" style="width:5%;margin-left:-2%;" item-left>
+        <ion-label>{{datein}}</ion-label>
+      </ion-item>
+      <ion-input type="hidden" [(ngModel)]="datein" name="datein" readonly>
+      </ion-input>
+    </ion-card>
+    <ion-card>
+      <ion-item (click)="outCal()">
+        <img src="../../assets/imgs/check-out.png" style="width:5%;margin-left:-2%;" item-left>
+        <ion-label>{{dateout}}</ion-label>
+      </ion-item>
+      <ion-input type="hidden" [(ngModel)]="dateout" name="dateout" readonly>
+      </ion-input>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label floating>Room(s)</ion-label>
+        <ion-select [(ngModel)]="room" name="room" value="1" required>
+          <ion-option value="1" selected="true">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+          <ion-option value="8">8</ion-option>
+          <ion-option value="9">9</ion-option>
+          <ion-option value="10">10</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Adult (per room)</ion-label>
+            <ion-select [(ngModel)]="adult" name="adult" value="2" required>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2" selected="true">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="7">8</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Child (per room)</ion-label>
+            <ion-select [(ngModel)]="child" name="child" value="0" required (ionChange)="checkChild()">
+              <ion-option value="0" selected="true">0</ion-option>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-card *ngIf="child !== 0">
+      <ion-item *ngFor="let ochi of datac;let idx = index">
+        <ion-label floating>Child Age {{idx+1}}</ion-label>
+        <ion-select [(ngModel)]="ochi.age" [ngModelOptions]="{standalone: true}" required>
+          <ion-option value="1" selected="true">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+          <ion-option value="8">8</ion-option>
+          <ion-option value="9">9</ion-option>
+          <ion-option value="10">10</ion-option>
+          <ion-option value="11">11</ion-option>
+          <ion-option value="12">12</ion-option>
+          <ion-option value="13">13</ion-option>
+          <ion-option value="14">14</ion-option>
+          <ion-option value="15">15</ion-option>
+          <ion-option value="16">16</ion-option>
+          <ion-option value="17">17</ion-option>
+          <ion-option value="18">18</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card>
+    <div padding style="margin-top:-5%;">
+      <button ion-button round block type="submit" class="grad">Search&nbsp;&nbsp;
+        <ion-icon name="search"></ion-icon></button>
+    </div>
+  </form>
+</ion-content>

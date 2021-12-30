@@ -1,0 +1,183 @@
+<!--
+  Generated template for the MyorderhotelPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>Hotel Order</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:#f2f2f2;">
+  <ion-refresher slot="fixed" (ionRefresh)="reSearch($event)">
+    <ion-refresher-content pullingIcon="arrow-round-down" pullingText="Pull to refresh" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngIf="status === 0">
+    <ion-item>
+      <button ion-button outline block icon-start color="danger" style="padding:10%">
+        <ion-icon name="hand"></ion-icon> You Don't Have Any Order
+      </button>
+    </ion-item>
+  </ion-card>
+  <ion-card *ngFor="let order of dataorder" class="grad">
+    <i style="color:red;font-size:50%;" item-right>&nbsp;&nbsp;{{order.bookingcode}}</i>
+    <div *ngIf="order.status === 'booked'">
+      <ion-item>
+        <div>
+          <button ion-button color="shscolor" outline round padding style="font-size:100%;" class="grad">
+            <b style="color:darkgreen;">{{order.bookingcode}}</b>&nbsp;&nbsp;&nbsp;
+            <img src="../../assets/imgs/hotel.png" style="width:10%;">&nbsp;&nbsp;&nbsp;
+            <b style="color:darkgreen;"> {{getPoint(order.price)}} Point</b>
+          </button>
+        </div>
+        <p>
+          <b>{{order.ordername}}</b><br>
+          {{order.address}}<br>
+          {{order.ordernamedetail}}<br>
+          {{order.board}}<br>
+          Remarks : {{order.remarks}}<br>
+          {{order.checkin | date: "d MMM yyyy"}} - {{order.checkout | date: "d MMM yyyy"}} ({{order.nights}} Nights)
+        </p>
+        <div *ngFor="let nm of order.firstname;let idx = index" style="font-size: 10px;">
+          Lead of Room {{idx+1}} : {{nm}} {{order.lastname[idx]}}
+        </div>
+        <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+          <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+              {{order.dateexpired | date: "d MMM yyyy HH:mm:ss"}}
+              GMT+7(WIB)</b><br><b style="color:green">ISSUED</b></ion-icon>
+        </button>
+        <div class="ion-text-center" text-justify>
+          <div *ngIf="order.checkin <= todayDate ">
+            <ion-row>
+              <ion-col col-6>
+                <button ion-button round class="btnbor" icon-start
+                  (click)="downEticket(idm,order.orderid,order.hotelid,konv,order.bookingcode)">
+                  <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;E-Ticket
+                </button>
+              </ion-col>
+              <ion-col col-6>
+                <button ion-button round class="btnbor" icon-start
+                  (click)="downInvoice(idm,order.orderid,order.hotelid,konv,order.bookingcode)">
+                  <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                </button>
+              </ion-col>
+            </ion-row>
+          </div>
+          <div *ngIf="order.checkin > todayDate ">
+            <ion-row>
+              <ion-col col-6>
+                <button ion-button round class="btnbor" color="danger" icon-start
+                  (click)="delbookOrder(order.bookingcode,order.orderid)">
+                  <img src="../../assets/imgs/trash.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Cancel
+                </button>
+              </ion-col>
+              <ion-col col-6>
+              </ion-col>
+              <ion-col col-6>
+                <button ion-button round class="btnbor" icon-start
+                  (click)="downEticket(idm,order.orderid,order.hotelid,konv,order.bookingcode)">
+                  <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;E-Ticket
+                </button>
+              </ion-col>
+              <ion-col col-6>
+                <button ion-button round class="btnbor" icon-start
+                  (click)="downInvoice(idm,order.orderid,order.hotelid,konv,order.bookingcode)">
+                  <img src="../../assets/imgs/download.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Invoice
+                </button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-item>
+      <b style="font-size: 13px;" padding>Order By : {{order.orderby}}</b>
+    </div>
+    <div *ngIf="order.status === 'cancel'">
+      <ion-item>
+        <div>
+          <button ion-button color="shscolor" outline round padding style="font-size:100%;" class="grad">
+            <b style="color:darkgreen;">{{order.bookingcode}}</b>&nbsp;&nbsp;&nbsp;
+            <img src="../../assets/imgs/hotel.png" style="width:10%;">&nbsp;&nbsp;&nbsp;
+            <b style="color:darkgreen;"> {{getPoint(order.price)}} Point</b>
+          </button>
+        </div>
+        <p>
+          <b>{{order.ordername}}</b><br>
+          {{order.address}}<br>
+          {{order.ordernamedetail}}<br>
+          {{order.board}}<br>
+          Remarks : {{order.remarks}}<br>
+          {{order.checkin | date: "d MMM yyyy"}} - {{order.checkout | date: "d MMM yyyy"}} ({{order.nights}} Nights)
+        </p>
+        <div *ngFor="let nm of order.firstname;let idx = index" style="font-size: 10px;">
+          Lead of Room {{idx+1}} : {{nm}} {{order.lastname[idx]}}
+        </div>
+        <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+          <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+              {{order.dateexpired | date: "d MMM yyyy HH:mm:ss"}}
+              GMT+7(WIB)</b><br><b style="color:black">CANCELLED</b></ion-icon>
+        </button>
+      </ion-item>
+      <b style="font-size: 13px;" padding>Order By : {{order.orderby}}</b>
+    </div>
+    <div *ngIf="order.status === 'checkout'">
+      <ion-item>
+        <div>
+          <button ion-button color="shscolor" outline round padding style="font-size:100%;" class="grad">
+            <b style="color:darkgreen;">{{order.bookingcode}}</b>&nbsp;&nbsp;&nbsp;
+            <img src="../../assets/imgs/hotel.png" style="width:10%;">&nbsp;&nbsp;&nbsp;
+            <b style="color:darkgreen;"> {{getPoint(order.price)}} Point</b>
+          </button>
+        </div>
+        <p>
+          <b>{{order.ordername}}</b><br>
+          {{order.address}}<br>
+          {{order.ordernamedetail}}<br>
+          {{order.board}}<br>
+          Remarks : {{order.remarks}}<br>
+          {{order.checkin | date: "d MMM yyyy"}} - {{order.checkout | date: "d MMM yyyy"}} ({{order.nights}} Nights)
+        </p>
+        <div *ngFor="let nm of order.firstname;let idx = index" style="font-size: 10px;">
+          Lead of Room {{idx+1}} : {{nm}} {{order.lastname[idx]}}
+        </div>
+        <div *ngIf="order.dateexpired <= todayDate ">
+          <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+            <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                {{order.dateexpired | date: "d MMM yyyy HH:mm:ss"}}
+                GMT+7(WIB)</b><br><b style="color:red">EXPIRED</b></ion-icon>
+          </button>
+        </div>
+        <div *ngIf="order.dateexpired > todayDate ">
+          <button ion-button color="shscolor" outline full padding style="font-size:100%;">
+            <ion-icon name="alarm" style="color:red;font-size:80%;"> <b>Limit :
+                {{order.dateexpired | date: "d MMM yyyy HH:mm:ss"}}
+                GMT+7(WIB)</b><br><b style="color:orange">CHECKOUT</b></ion-icon>
+          </button>
+        </div>
+        <div class="ion-text-center" text-justify>
+          <div *ngIf="order.dateexpired <= todayDate ">
+          </div>
+          <div *ngIf="order.dateexpired > todayDate ">
+            <ion-row>
+              <ion-col col-6>
+                <button ion-button round color="secondary" class="btnbor" icon-start
+                  (click)="issOrder(order.price,order.hotelid,order.orderid,order.firstname,order.lastname,order.remarks,order.rooms,order.adults,order.childs,order.childage)">
+                  <img src="../../assets/imgs/issued.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Issued
+                </button>
+              </ion-col>
+              <ion-col col-6>
+                <button ion-button round class="btnbor" color="danger" icon-start
+                  (click)="delcheckOrder(order.orderid)">
+                  <img src="../../assets/imgs/trash.png" style="width:20%;">&nbsp;&nbsp;&nbsp;Cancel
+                </button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-item>
+      <b style="font-size: 13px;" padding>Order By : {{order.orderby}}</b>
+    </div>
+  </ion-card>
+</ion-content>

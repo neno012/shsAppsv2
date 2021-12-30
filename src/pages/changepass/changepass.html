@@ -1,0 +1,56 @@
+<!--
+  Generated template for the ChangepassPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>Change Password</ion-title>
+  </ion-navbar>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+</ion-header>
+
+<ion-content padding>
+  <div class="signcard animated bounceInDown">
+    <form (ngSubmit)="changePassword()">
+      <br>
+      <ion-card>
+        <ion-item class="border-bottom">
+          <ion-label floating>Old Password</ion-label>
+          <ion-input [type]="typeInput" [(ngModel)]="oldpas" name="oldpas" clearOnEdit="false" required>
+          </ion-input>
+          <span ion-button clear type="button" item-right (click)="showHidePass()">
+            <ion-icon [name]="toggleColor()" color="shscolor"> </ion-icon>
+          </span>
+        </ion-item>
+        <ion-item class="border-bottom">
+          <ion-label floating>New Password</ion-label>
+          <ion-input [type]="typeInput" [(ngModel)]="newpas" name="newpas" clearOnEdit="false" required>
+          </ion-input>
+          <span ion-button clear type="button" item-right (click)="showHidePass()">
+            <ion-icon [name]="toggleColor()" color="shscolor"> </ion-icon>
+          </span>
+        </ion-item>
+        <ion-item class="border-bottom">
+          <ion-label floating>Confirm New Password</ion-label>
+          <ion-input [type]="typeInput" [(ngModel)]="confnewpas" name="confnewpas" clearOnEdit="false" required>
+          </ion-input>
+          <span ion-button clear type="button" item-right (click)="showHidePass()">
+            <ion-icon [name]="toggleColor()" color="shscolor"> </ion-icon>
+          </span>
+        </ion-item>
+      </ion-card>
+      <div padding style="margin-top:-5%;">
+        <button ion-button round block type="submit" class="grad">Change Password&nbsp;&nbsp;
+          <ion-icon name="key"></ion-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="shadowcard animated bounceInUp">
+    <div class="dontholder" text-center>
+      <p>Change your password</p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,468 @@
+<!--
+  Generated template for the GetflightPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>Form Booking</ion-title>
+  </ion-navbar>
+  <ion-item>
+    <p>
+      <b>
+        <ion-icon name="plane"></ion-icon>&nbsp;&nbsp;&nbsp;{{dep}}
+        <ion-icon name="arrow-round-back" *ngIf="datearr !== undefined"></ion-icon>
+        <ion-icon name="arrow-round-forward"></ion-icon> {{arr}}
+      </b>
+    </p>
+    <p>
+      <b>
+        <ion-icon name="calendar"></ion-icon>&nbsp;&nbsp;&nbsp;{{datedep | date: 'd MMMM yyyy'}}
+        <ion-icon name="arrow-round-back" *ngIf="datearr !== undefined"></ion-icon>
+        <ion-icon name="arrow-round-forward" *ngIf="datearr !== undefined"></ion-icon> {{datearr | date: 'd MMMM yyyy'}}
+      </b>
+    </p>
+    <p><b>Adult : {{adlt}} || Child : {{chld}} || Infant : {{nfnt}}</b></p>
+  </ion-item>
+</ion-header>
+
+<ion-content class="animated fadeIn common-bg" style="background-color:#f2f2f2;">
+  <ion-item class="item-stable" (click)="toggleGroup(0)" [ngClass]="{active: isGroupShown(0)}" *ngIf="flightData">
+    <b>Flight Detail</b>&nbsp;
+    <ion-icon name="arrow-dropdown" color="shscolor"></ion-icon>&nbsp;
+    <b style="color:#ff6600;margin-left: 5px;margin-bottom: 5px;">{{getPoint(totalPrice)}} Point</b>
+    <ion-card radio-group [(ngModel)]="itemFamily" *ngIf="isGroupShown(0)">
+      <ion-item *ngFor="let flight_info of flightData.result.data.details">
+        <div *ngFor="let itemDetails of flight_info.itemDetails">
+          <b class="ion-text-capitalize">{{convChar(itemDetails.journeyType)}} Detail :</b>&nbsp;
+          <ion-item *ngFor="let schedules of itemDetails.schedules">
+            <ion-avatar item-start>
+              <img src="{{schedules.airline.urlIcon}}">
+            </ion-avatar>
+            <h3 class="ion-text-capitalize">
+              {{convChar(schedules.airline.displayName)}}-{{schedules.airline.code}}{{schedules.flightNumber}}
+              ({{schedules.travelTime.hour}}h
+              {{schedules.travelTime.minute}}m)</h3>
+            <h3>({{schedules.departureDetail.airportCode}})
+              {{schedules.departureDetail.time}} <ion-icon name="plane"></ion-icon>
+              ({{schedules.arrivalDetail.airportCode}})
+              {{schedules.arrivalDetail.time}}</h3>
+            <h6>
+              <p>
+                <ion-icon name="filing" class="ion-text-capitalize">
+                  {{convChar(schedules.cabinClass)}}({{schedules.fareClass}})</ion-icon>
+                <ion-icon name="briefcase"> {{schedules.baggage.checkIn.qty}}{{schedules.baggage.checkIn.measurement}}
+                </ion-icon>
+                <ion-icon name="restaurant" *ngIf="schedules.facilities.meal.value === true"> Meal</ion-icon>
+              </p>
+            </h6>
+            <h4 *ngIf="itemDetails.totalTransit !== 0 && schedules.transitTime !== null">Transit in
+              {{schedules.arrivalDetail.cityName}}({{schedules.arrivalDetail.airportCode}})
+              {{schedules.transitTime.hour}}h {{schedules.transitTime.minute}}m</h4>
+          </ion-item>
+          <b style="color:#ff6600;margin-left: 5px;margin-bottom: 5px;">{{getPoint(flight_info.fareDetails[0].fares[0].totalFare.total)}}
+            Point</b>
+        </div>
+      </ion-item>
+    </ion-card>
+  </ion-item>
+
+  <form (ngSubmit)="getlogForm()">
+    <ion-card>&nbsp;&nbsp;Ordering details
+      <ion-item class="border-bottom">
+        <ion-label>Title</ion-label>
+        <ion-select [(ngModel)]="contactSegment.title" value="Mr" [ngModelOptions]="{standalone: true}" required>
+          <ion-option value="Mr" selected="true">Mr</ion-option>
+          <ion-option value="Mrs">Mrs</ion-option>
+          <ion-option value="Ms">Ms</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="border-bottom">
+        <ion-label>Full Name</ion-label>
+        <ion-input [(ngModel)]="contactSegment.fullName" [ngModelOptions]="{standalone: true}" type="text" required>
+        </ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card *ngIf="adlt > 0">
+      <ion-list *ngFor="let jumAdult of adult;let idx = index">
+        <b>&nbsp;&nbsp;Adult Passanger {{idx+1}}</b>
+        <div *ngIf="paspor === 'ya'">
+          <ion-item class="border-bottom">
+            <ion-label>Title</ion-label>
+            <ion-select [(ngModel)]="jumAdult.title" value="Mr" [ngModelOptions]="{standalone: true}" required>
+              <ion-option value="Mr" selected="true">Mr</ion-option>
+              <ion-option value="Mrs">Mrs</ion-option>
+              <ion-option value="Ms">Ms</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>First Name</ion-label>
+            <ion-input [(ngModel)]="jumAdult.firstName" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Last Name</ion-label>
+            <ion-input [(ngModel)]="jumAdult.lastName" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Birth Date</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobadult"
+              [max]="maxdobadult" [(ngModel)]="jumAdult.dob" [ngModelOptions]="{standalone: true}" readonly required>
+            </ion-datetime>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>No. Passport</ion-label>
+            <ion-input [(ngModel)]="jumAdult.passportNo" [ngModelOptions]="{standalone: true}" type="text">
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Issuing Date</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="minispas" [max]="maxispas"
+              [(ngModel)]="jumAdult.issuingDate" [ngModelOptions]="{standalone: true}" readonly required>
+            </ion-datetime>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Exp. Passport</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="minexpas"
+              [max]="maxexpas" [(ngModel)]="jumAdult.passportExpiry" [ngModelOptions]="{standalone: true}" readonly
+              required>
+            </ion-datetime>
+          </ion-item>
+          <div *ngFor="let departureBaggageadult of departureBaggageadult;let i=index">
+            <ion-item class="border-bottom">
+              <ion-label floating>Dept. Bag. ({{departureBaggageadult.origin}} - {{departureBaggageadult.destination}})
+                Free
+                {{departureBaggageadult.inclusiveBaggagePax.checkIn.qty}}{{departureBaggageadult.inclusiveBaggagePax.checkIn.measurement}}
+              </ion-label>
+              <ion-select [(ngModel)]="jumAdult.departureBaggages[0].baggages[i]" [ngModelOptions]="{standalone: true}"
+                required *ngIf="departureBaggageadult.inputSources.length > 0">
+                <div *ngFor="let departureBaggage of departureBaggageadult.inputSources">
+                  <ion-option value="{{departureBaggage.value}}">
+                    {{departureBaggage.value}}{{departureBaggage.measurement}} (+Poin
+                    {{getPoint(departureBaggage.price)}})</ion-option>
+                </div>
+              </ion-select>
+              <ion-input type="text" value="Not Available to Buy Baggages"
+                *ngIf="departureBaggageadult.inputSources.length == 0" readonly>
+              </ion-input>
+            </ion-item>
+          </div>
+          <div *ngIf="datearr != undefined">
+            <div *ngFor="let returnBaggageadult of returnBaggageadult;let i=index">
+              <ion-item class="border-bottom">
+                <ion-label floating>Retn. Bag. ({{returnBaggageadult.origin}} - {{returnBaggageadult.destination}}) Free
+                  {{returnBaggageadult.inclusiveBaggagePax.checkIn.qty}}{{returnBaggageadult.inclusiveBaggagePax.checkIn.measurement}}
+                </ion-label>
+                <ion-select [(ngModel)]="jumAdult.returnBaggages[0].baggages[i]" [ngModelOptions]="{standalone: true}"
+                  required *ngIf="returnBaggageadult.inputSources.length > 0">
+                  <div *ngFor="let returnBaggage of returnBaggageadult.inputSources">
+                    <ion-option value="{{returnBaggage.value}}">{{returnBaggage.value}}{{returnBaggage.measurement}}
+                      (+Poin {{getPoint(returnBaggage.price)}})</ion-option>
+                  </div>
+                </ion-select>
+                <ion-input type="text" value="Not Available to Buy Baggages"
+                  *ngIf="returnBaggageadult.inputSources.length == 0" readonly>
+                </ion-input>
+              </ion-item>
+            </div>
+          </div>
+          <ion-input type="hidden" [(ngModel)]="jumAdult.nationality" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+          <ion-input type="hidden" [(ngModel)]="jumAdult.issuingCountry" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+        </div>
+        <div *ngIf="paspor === 'tidak'">
+          <ion-item class="border-bottom">
+            <ion-label>Title</ion-label>
+            <ion-select [(ngModel)]="jumAdult.title" value="Mr" [ngModelOptions]="{standalone: true}" required>
+              <ion-option value="Mr" selected="true">Mr</ion-option>
+              <ion-option value="Mrs">Mrs</ion-option>
+              <ion-option value="Ms">Ms</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Full Name</ion-label>
+            <ion-input [(ngModel)]="jumAdult.fullName" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom" *ngIf="dobadult === 'required'">
+            <ion-label>Birth Date</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobadult"
+              [max]="maxdobadult" [(ngModel)]="jumAdult.dob" [ngModelOptions]="{standalone: true}" readonly required>
+            </ion-datetime>
+          </ion-item>
+          <div *ngFor="let departureBaggageadult of departureBaggageadult;let i=index">
+            <ion-item class="border-bottom">
+              <ion-label floating>Dept. Bag. ({{departureBaggageadult.origin}} - {{departureBaggageadult.destination}})
+                Free
+                {{departureBaggageadult.inclusiveBaggagePax.checkIn.qty}}{{departureBaggageadult.inclusiveBaggagePax.checkIn.measurement}}
+              </ion-label>
+              <ion-select [(ngModel)]="jumAdult.departureBaggages[0].baggages[i]" [ngModelOptions]="{standalone: true}"
+                required *ngIf="departureBaggageadult.inputSources.length > 0">
+                <div *ngFor="let departureBaggage of departureBaggageadult.inputSources">
+                  <ion-option value="{{departureBaggage.value}}">
+                    {{departureBaggage.value}}{{departureBaggage.measurement}} (+Poin
+                    {{getPoint(departureBaggage.price)}})</ion-option>
+                </div>
+              </ion-select>
+              <ion-input type="text" value="Not Available to Buy Baggages"
+                *ngIf="departureBaggageadult.inputSources.length == 0" readonly>
+              </ion-input>
+            </ion-item>
+          </div>
+          <div *ngIf="datearr != undefined">
+            <div *ngFor="let returnBaggageadult of returnBaggageadult;let i=index">
+              <ion-item class="border-bottom">
+                <ion-label floating>Retn. Bag. ({{returnBaggageadult.origin}} - {{returnBaggageadult.destination}}) Free
+                  {{returnBaggageadult.inclusiveBaggagePax.checkIn.qty}}{{returnBaggageadult.inclusiveBaggagePax.checkIn.measurement}}
+                </ion-label>
+                <ion-select [(ngModel)]="jumAdult.returnBaggages[0].baggages[i]" [ngModelOptions]="{standalone: true}"
+                  required *ngIf="returnBaggageadult.inputSources.length > 0">
+                  <div *ngFor="let returnBaggage of returnBaggageadult.inputSources">
+                    <ion-option value="{{returnBaggage.value}}">{{returnBaggage.value}}{{returnBaggage.measurement}}
+                      (+Poin {{getPoint(returnBaggage.price)}})</ion-option>
+                  </div>
+                </ion-select>
+                <ion-input type="text" value="Not Available to Buy Baggages"
+                  *ngIf="returnBaggageadult.inputSources.length == 0" readonly>
+                </ion-input>
+              </ion-item>
+            </div>
+          </div>
+          <ion-input type="hidden" [(ngModel)]="jumAdult.nationality" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+        </div>
+      </ion-list>
+    </ion-card>
+    <ion-card *ngIf="chld > 0">
+      <ion-list *ngFor="let jumChild of child;let idx = index">
+        <b>&nbsp;&nbsp;Child Passanger {{idx+1}}</b>
+        <div *ngIf="paspor === 'ya'">
+          <ion-item class="border-bottom">
+            <ion-label>Title</ion-label>
+            <ion-select [(ngModel)]="jumChild.title" value="Mstr" [ngModelOptions]="{standalone: true}" required>
+              <ion-option value="Mstr" selected="true">Mstr</ion-option>
+              <ion-option value="Miss">Miss</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>First Name</ion-label>
+            <ion-input [(ngModel)]="jumChild.firstName" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Last Name</ion-label>
+            <ion-input [(ngModel)]="jumChild.lastName" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Birth Date</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobchild"
+              [max]="maxdobchild" [(ngModel)]="jumChild.dob" [ngModelOptions]="{standalone: true}" readonly required>
+            </ion-datetime>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>No. Passport</ion-label>
+            <ion-input [(ngModel)]="jumChild.passportNo" [ngModelOptions]="{standalone: true}" type="text">
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Issuing Date</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="minispas" [max]="maxispas"
+              [(ngModel)]="jumChild.issuingDate" [ngModelOptions]="{standalone: true}" readonly required>
+            </ion-datetime>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Exp. Passport</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="minexpas"
+              [max]="maxexpas" [(ngModel)]="jumChild.passportExpiry" [ngModelOptions]="{standalone: true}" readonly
+              required>
+            </ion-datetime>
+          </ion-item>
+
+          <div *ngFor="let departureBaggagechild of departureBaggagechild;let i=index">
+            <ion-item class="border-bottom">
+              <ion-label floating>Dept. Bag. ({{departureBaggagechild.origin}} - {{departureBaggagechild.destination}})
+                Free
+                {{departureBaggagechild.inclusiveBaggagePax.checkIn.qty}}{{departureBaggagechild.inclusiveBaggagePax.checkIn.measurement}}
+              </ion-label>
+              <ion-select [(ngModel)]="jumChild.departureBaggages[0].baggages[i]" [ngModelOptions]="{standalone: true}"
+                required *ngIf="departureBaggagechild.inputSources.length > 0">
+                <div *ngFor="let departureBaggage of departureBaggagechild.inputSources">
+                  <ion-option value="{{departureBaggage.value}}">
+                    {{departureBaggage.value}}{{departureBaggage.measurement}} (+Poin
+                    {{getPoint(departureBaggage.price)}})</ion-option>
+                </div>
+              </ion-select>
+              <ion-input type="text" value="Not Available to Buy Baggages"
+                *ngIf="departureBaggagechild.inputSources.length == 0" readonly>
+              </ion-input>
+            </ion-item>
+          </div>
+          <div *ngIf="datearr != undefined">
+            <div *ngFor="let returnBaggagechild of returnBaggagechild;let i=index">
+              <ion-item class="border-bottom">
+                <ion-label floating>Retn. Bag. ({{returnBaggagechild.origin}} - {{returnBaggagechild.destination}}) Free
+                  {{returnBaggagechild.inclusiveBaggagePax.checkIn.qty}}{{returnBaggagechild.inclusiveBaggagePax.checkIn.measurement}}
+                </ion-label>
+                <ion-select [(ngModel)]="jumChild.returnBaggages[0].baggages[i]" [ngModelOptions]="{standalone: true}"
+                  required *ngIf="returnBaggagechild.inputSources.length > 0">
+                  <div *ngFor="let returnBaggage of returnBaggagechild.inputSources">
+                    <ion-option value="{{returnBaggage.value}}">{{returnBaggage.value}}{{returnBaggage.measurement}}
+                      (+Poin {{getPoint(returnBaggage.price)}})</ion-option>
+                  </div>
+                </ion-select>
+                <ion-input type="text" value="Not Available to Buy Baggages"
+                  *ngIf="returnBaggagechild.inputSources.length == 0" readonly>
+                </ion-input>
+              </ion-item>
+            </div>
+          </div>
+          <ion-input type="hidden" [(ngModel)]="jumChild.nationality" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+          <ion-input type="hidden" [(ngModel)]="jumChild.issuingCountry" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+        </div>
+        <div *ngIf="paspor === 'tidak'">
+          <ion-item class="border-bottom">
+            <ion-label>Title</ion-label>
+            <ion-select [(ngModel)]="jumChild.title" value="Mstr" [ngModelOptions]="{standalone: true}" required>
+              <ion-option value="Mstr" selected="true">Mstr</ion-option>
+              <ion-option value="Miss">Miss</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Full Name</ion-label>
+            <ion-input [(ngModel)]="jumChild.fullName" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Birth Date</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobchild"
+              [max]="maxdobchild" [(ngModel)]="jumChild.dob" [ngModelOptions]="{standalone: true}" readonly required>
+            </ion-datetime>
+          </ion-item>
+          <div *ngFor="let departureBaggagechild of departureBaggagechild;let i=index">
+            <ion-item class="border-bottom">
+              <ion-label floating>Dept. Bag. ({{departureBaggagechild.origin}} - {{departureBaggagechild.destination}})
+                Free
+                {{departureBaggagechild.inclusiveBaggagePax.checkIn.qty}}{{departureBaggagechild.inclusiveBaggagePax.checkIn.measurement}}
+              </ion-label>
+              <ion-select [(ngModel)]="jumChild.departureBaggages[0].baggages[i]" [ngModelOptions]="{standalone: true}"
+                required *ngIf="departureBaggagechild.inputSources.length > 0">
+                <div *ngFor="let departureBaggage of departureBaggagechild.inputSources">
+                  <ion-option value="{{departureBaggage.value}}">
+                    {{departureBaggage.value}}{{departureBaggage.measurement}} (+Poin
+                    {{getPoint(departureBaggage.price)}})</ion-option>
+                </div>
+              </ion-select>
+              <ion-input type="text" value="Not Available to Buy Baggages"
+                *ngIf="departureBaggagechild.inputSources.length == 0" readonly>
+              </ion-input>
+            </ion-item>
+          </div>
+          <div *ngIf="datearr != undefined">
+            <div *ngFor="let returnBaggagechild of returnBaggagechild;let i=index">
+              <ion-item class="border-bottom">
+                <ion-label floating>Retn. Bag. ({{returnBaggagechild.origin}} - {{returnBaggagechild.destination}}) Free
+                  {{returnBaggagechild.inclusiveBaggagePax.checkIn.qty}}{{returnBaggagechild.inclusiveBaggagePax.checkIn.measurement}}
+                </ion-label>
+                <ion-select [(ngModel)]="jumChild.returnBaggages[0].baggages[i]" [ngModelOptions]="{standalone: true}"
+                  required *ngIf="returnBaggagechild.inputSources.length > 0">
+                  <div *ngFor="let returnBaggage of returnBaggagechild.inputSources">
+                    <ion-option value="{{returnBaggage.value}}">{{returnBaggage.value}}{{returnBaggage.measurement}}
+                      (+Poin {{getPoint(returnBaggage.price)}})</ion-option>
+                  </div>
+                </ion-select>
+                <ion-input type="text" value="Not Available to Buy Baggages"
+                  *ngIf="returnBaggagechild.inputSources.length == 0" readonly>
+                </ion-input>
+              </ion-item>
+            </div>
+          </div>
+          <ion-input type="hidden" [(ngModel)]="jumChild.nationality" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+        </div>
+      </ion-list>
+    </ion-card>
+    <ion-card *ngIf="nfnt > 0">
+      <ion-list *ngFor="let jumInfant of infant;let idx = index">
+        <b>&nbsp;&nbsp;Infant Passanger {{idx+1}}</b>
+        <div *ngIf="paspor === 'ya'">
+          <ion-item class="border-bottom">
+            <ion-label>Title</ion-label>
+            <ion-select [(ngModel)]="jumInfant.title" value="Mstr" [ngModelOptions]="{standalone: true}" required>
+              <ion-option value="Mstr" selected="true">Mstr</ion-option>
+              <ion-option value="Miss">Miss</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>First Name</ion-label>
+            <ion-input [(ngModel)]="jumInfant.firstName" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Last Name</ion-label>
+            <ion-input [(ngModel)]="jumInfant.lastName" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Birth Date</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobinfant"
+              [max]="maxdobinfant" [(ngModel)]="jumInfant.dob" [ngModelOptions]="{standalone: true}" readonly required>
+            </ion-datetime>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>No. Passport</ion-label>
+            <ion-input [(ngModel)]="jumInfant.passportNo" [ngModelOptions]="{standalone: true}" type="text">
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Issuing Date</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="minispas" [max]="maxispas"
+              [(ngModel)]="jumInfant.issuingDate" [ngModelOptions]="{standalone: true}" readonly required>
+            </ion-datetime>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Exp. Passport</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="minexpas"
+              [max]="maxexpas" [(ngModel)]="jumInfant.passportExpiry" [ngModelOptions]="{standalone: true}" readonly
+              required>
+            </ion-datetime>
+          </ion-item>
+          <ion-input type="hidden" [(ngModel)]="jumInfant.nationality" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+          <ion-input type="hidden" [(ngModel)]="jumInfant.issuingCountry" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+        </div>
+        <div *ngIf="paspor === 'tidak'">
+          <ion-item class="border-bottom">
+            <ion-label>Title</ion-label>
+            <ion-select [(ngModel)]="jumInfant.title" value="Mstr" [ngModelOptions]="{standalone: true}" required>
+              <ion-option value="Mstr" selected="true">Mstr</ion-option>
+              <ion-option value="Miss">Miss</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Full Name</ion-label>
+            <ion-input [(ngModel)]="jumInfant.fullName" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Birth Date</ion-label>
+            <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobinfant"
+              [max]="maxdobinfant" [(ngModel)]="jumInfant.dob" [ngModelOptions]="{standalone: true}" readonly required>
+            </ion-datetime>
+          </ion-item>
+          <ion-input type="hidden" [(ngModel)]="jumInfant.nationality" [ngModelOptions]="{standalone: true}">
+          </ion-input>
+        </div>
+      </ion-list>
+    </ion-card>
+    <div padding style="margin-top:-5%;">
+      <button ion-button round block type="submit" class="grad">Book Flight</button>
+    </div>
+  </form>
+</ion-content>

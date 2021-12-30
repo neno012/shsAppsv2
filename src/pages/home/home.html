@@ -1,0 +1,14 @@
+<ion-tabs color="shscolor">
+  <div *ngIf="hasLogin() === true">
+    <ion-tab tabIcon="home" tabTitle="Home" [root]="base"></ion-tab>
+    <ion-tab tabIcon="list-box" tabTitle="My Order" [root]="myorderlist"></ion-tab>
+    <ion-tab tabIcon="pricetags" tabTitle="Discount" [root]="discount"></ion-tab>
+    <ion-tab tabIcon="mail-open" tabTitle="Inbox" [root]="notification"></ion-tab>
+    <ion-tab tabIcon="contact" tabTitle="Account" [root]="account"></ion-tab>
+  </div>
+  <div *ngIf="hasLogin() === false">
+    <ion-tab tabIcon="home" tabTitle="Home" [root]="base"></ion-tab>
+    <ion-tab tabIcon="pricetags" tabTitle="Discount" [root]="discount"></ion-tab>
+    <ion-tab tabIcon="contact" tabTitle="Account" [root]="account"></ion-tab>
+  </div>
+</ion-tabs>

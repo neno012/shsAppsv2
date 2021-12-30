@@ -1,0 +1,18 @@
+page-showimage {
+  .tengah {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .kiri {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+
+  .btnbor {
+    border: 1px solid;
+    height: 50px;
+  }
+}

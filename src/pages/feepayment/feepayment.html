@@ -1,0 +1,48 @@
+<!--
+  Generated template for the FeepaymentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>Service Fee</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:#f2f2f2;">
+  <ion-card padding *ngFor="let payment of result">
+    <div class="card-content">
+      <b>{{payment.remarksfee}}</b><br><br>
+      Tanggal Pembayaran : {{payment.datefee | date: 'dd MMM yyyy'}}<br>
+      Metode Pembayaran : {{payment.typefee}}<br>
+      Rp. {{payment.nominalfee}}
+    </div>
+  </ion-card>
+  <br>
+</ion-content>
+
+<!-- <ion-content style="background-color:#f2f2f2;" padding>
+  <ion-refresher slot="fixed" (ionRefresh)="reSearch($event)">
+    <ion-refresher-content pullingIcon="arrow-round-down" pullingText="Pull to refresh" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <table text-center>
+    <thead>
+      <tr>
+        <th class="col">No.</th>
+        <th class="col">Remarks</th>
+        <th class="col">Payment Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let payment of result;let i = index;"
+        (click)="showDetails(payment.remarksfee,payment.nominalfee,payment.typefee,payment.datefee)">
+        <td class="col">{{i+1}}</td>
+        <td class="col">{{payment.remarksfee}}</td>
+        <td class="col">{{payment.datefee | date: 'dd MMM yyyy'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+</ion-content> -->

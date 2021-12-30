@@ -1,0 +1,82 @@
+<!--
+  Generated template for the ActivitysearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <ion-title>Activity Search</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="animated fadeIn common-bg" no-bounce>
+  <form class="list-form" (ngSubmit)="Search()">
+    <ion-card>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Activity</ion-label>
+            <ion-select [(ngModel)]="activity" name="activity" required>
+              <!-- <ion-option value="" selected="true">Select Activity</ion-option> -->
+              <ion-option value="1" selected="true">ONE DAY TOUR</ion-option>
+              <ion-option value="2">WATER SPORT</ion-option>
+              <ion-option value="3">BOUNTY CRUISES</ion-option>
+              <ion-option value="4">NUSA PENIDA TOUR</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Destination</ion-label>
+            <ion-select [(ngModel)]="destination" name="destination" value="1" required>
+              <!-- <ion-option value="" selected="true">Select Destination</ion-option> -->
+              <ion-option value="1" selected="true">BALI</ion-option>
+              <ion-option value="2">WEST BALI</ion-option>
+              <ion-option value="3">CENTRAL BALI</ion-option>
+              <ion-option value="4">SOUTH BALI</ion-option>
+              <ion-option value="5">EAST BALI</ion-option>
+              <ion-option value="6">NUSA PENIDA</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-card>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Adult(s)</ion-label>
+            <ion-select [(ngModel)]="adult" name="adult" required>
+              <ion-option value="1" selected>1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Child(s)</ion-label>
+            <ion-select [(ngModel)]="child" name="child" value="0" required>
+              <ion-option value="0" selected="true">0</ion-option>
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-card>     
+    <div padding style="margin-top:-5%;">
+      <button ion-button round block type="submit" class="grad">Search&nbsp;&nbsp;
+        <ion-icon name="search"></ion-icon></button>
+    </div>
+  </form>
+</ion-content>

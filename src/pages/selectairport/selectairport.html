@@ -1,0 +1,41 @@
+<!--
+  Generated template for the SelectairportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar color="shscolor">
+    <ion-title>
+      {{titleText}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="CloseModel()">
+        Cancel
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="DoneModel()">
+        Select
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar color="light">
+    <ion-row>
+      <ion-col col-12 no-padding>
+        <ion-searchbar [(ngModel)]="searchText" (ionInput)="FilterItems()" placeholder="Search Airport / City">
+        </ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="autocomplete">
+    <ion-item *ngFor="let item of filterItems" (click)="CheckChange(item)">
+      <ion-icon *ngIf="item.selected" name="checkmark-circle" color="shscolor" style="font-size: 26px;"></ion-icon>
+      <ion-icon *ngIf="!item.selected" name="radio-button-off" color="shscolor"
+        style="font-size: 26px;color: rgb(199, 199, 199);"></ion-icon>{{item.airport_name}} ({{item.airport_code}}) -
+      {{item.location_name}}
+    </ion-item>
+  </div>
+</ion-content>

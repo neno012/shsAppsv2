@@ -1,0 +1,124 @@
+<!--
+  Generated template for the HotelresultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shscolor">
+    <!-- <ion-title>Hotel Result</ion-title> -->
+    <b style="color: azure;">Check In : {{convDate(jsonhotel.request.stay.checkIn)}}<br>
+      Check Out : {{convDate(jsonhotel.request.stay.checkOut)}}<br>
+      Room(s) : {{jsonhotel.request.occupancies[0].rooms}}, Adult(s) : {{jsonhotel.request.occupancies[0].adults}},
+      Children(s) : {{jsonhotel.request.occupancies[0].children}}</b>
+  </ion-navbar>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</ion-header>
+
+<ion-content style="background-color:#f2f2f2;">
+  <ion-refresher slot="fixed" (ionRefresh)="reSearch($event)">
+    <ion-refresher-content pullingIcon="arrow-round-down" pullingText="Pull to refresh" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card class="adv-map" *ngFor="let hotel of jsonhotel.data.hotels.hotels; let i = index">
+    <ion-item item-start>
+      <ion-col>
+        <img src="{{hotel.picture}}" onerror="this.src='../../assets/imgs/logoshadow.png'"/>
+      </ion-col>
+      <div
+        *ngIf="hotel.categoryCode === '1EST' || hotel.categoryCode === '1LUX' || hotel.categoryCode === 'APTH' || hotel.categoryCode === 'HS'">
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="hotel.categoryCode === 'H1_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="hotel.categoryCode === '2EST' || hotel.categoryCode === '2LUX' || hotel.categoryCode === 'APTH2' || hotel.categoryCode === 'HS2' || hotel.categoryCode === 'H2S'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="hotel.categoryCode === 'H2_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="hotel.categoryCode === '3EST' || hotel.categoryCode === '3LUX' || hotel.categoryCode === 'APTH3' || hotel.categoryCode === 'HS3' || hotel.categoryCode === 'H3S'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="hotel.categoryCode === 'H3_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="hotel.categoryCode === '4EST' || hotel.categoryCode === '4LUX' || hotel.categoryCode === 'APTH4' || hotel.categoryCode === 'HS4'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="hotel.categoryCode === 'H4_5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star-half" style="color:gold"></span>
+      </div>
+      <div
+        *ngIf="hotel.categoryCode === '5EST' || hotel.categoryCode === '5LUX' || hotel.categoryCode === 'APTH5' || hotel.categoryCode === 'HS5'">
+        <span class="fa fa-star" style="color: gold;"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+        <span class="fa fa-star" style="color:gold"></span>
+      </div>
+      <div *ngIf="hotel.categoryCode === 'CHUES'">
+        <span>Hostel</span>
+      </div>
+      <div
+        *ngIf="hotel.categoryCode === '1LL' || hotel.categoryCode === '2LL' || hotel.categoryCode === '3LL' || hotel.categoryCode === '4LL' || hotel.categoryCode === '5LL'">
+        <span>Apartment</span>
+      </div>
+      <span>{{hotel.name}}</span><br>
+      <span><b style="color:#ff6600;">{{getPoint(hotel.minRate)}} Point</b></span>
+      <div>
+        <button class="green-button" (click)="detailsHotel(hotel.code, jsonhotel)">Hotel Details</button>
+      </div>
+    </ion-item>
+    <div ion-item (click)="toggleGroup(i)" [ngClass]="{active: isGroupShown(i)}" style="margin-top:-3%;">
+      <b style="color:#ff6600;">Room</b>
+      <img src="../../assets/imgs/detail.png" style="width:5%;" item-end>
+    </div>
+
+    <ion-list radio-group [(ngModel)]="itemFamily" *ngIf="isGroupShown(i)">
+      <ion-item *ngFor="let room of hotel.rooms" class="ion-text-justify">
+        <b class="ion-text-capitalize">{{room.name}}</b>
+        <div *ngFor="let rate of room.rates">
+            <div *ngIf="rate.rateType === 'RECHECK'" class="ratestyle"
+              (click)="recheckHotel(hotel.code,rate.rateKey,rate.rateType,rate.rateCommentsId,rate.rateClass)">
+              <b class="ion-text-capitalize">{{rate.boardName}}</b><br>
+              <i *ngIf="rate.rateClass === 'NRF'">Non Refundable</i>
+              <i *ngIf="rate.rateClass === 'NOR'">Refundable</i>
+              <br><b style="color:#ff6600;">{{getPoint(rate.net)}} Point</b>
+            </div>
+          <div *ngFor="let cancellationPolicies of rate.cancellationPolicies">
+            <div *ngIf="rate.rateType === 'BOOKABLE'" class="ratestyle"
+              (click)="bookHotel(hotel.code,hotel.name,hotel.categoryCode,rate.rateKey,rate.rateType,rate.rateClass,
+              rate.rateCommentsId,room.name,rate.boardName,rate.rooms,rate.adults,rate.children,rate.net,
+              jsonhotel.data.hotels.checkIn,jsonhotel.data.hotels.checkOut,cancellationPolicies.amount,cancellationPolicies.from)">
+              <b class="ion-text-capitalize">{{rate.boardName}}</b><br>
+              <i *ngIf="rate.rateClass === 'NRF'">Non Refundable</i>
+              <i *ngIf="rate.rateClass === 'NOR'">Refundable</i>
+              <br><b style="color:#ff6600;">{{getPoint(rate.net)}} Point</b>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,101 @@
+<!--
+  Generated template for the BasePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="shsshadow" text-center>
+    <ion-title *ngIf="hasLogin() === false"><img src="../../assets/imgs/logo.png" height="45px;"></ion-title>
+    <ion-grid no-padding *ngIf="hasLogin() === true">
+      <ion-row no-padding justify-content-start align-items-start>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-8>
+          <img src="../../assets/imgs/logo.png" height="45px;">
+        </ion-col>
+        <!-- <ion-col ion-item no-lines no-padding text-center col-2 color="shsshadow">
+          <ion-icon name="paper-plane" color="shscolor"></ion-icon>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+</ion-header>
+<ion-content style="background-color:#f2f2f2;">
+  <ion-slides *ngIf="banner && banner.length" autoplay="3000" loop="true" speed="500" pager>
+    <ion-slide *ngFor="let banner of banner">
+      <img src="{{banner.image}}" />
+    </ion-slide>
+  </ion-slides>
+  <div class="clearfix"></div>
+  <ion-grid>
+    <ion-row text-center class="grad9">
+      <ion-col col-3 style="padding-bottom:10px">
+        <!-- <ion-card class="profile-item grad7" (click)="flight()" style="padding:5px;height:75px;"> -->
+          <img src="../../assets/imgs/planebutton.png" weigh="65%;" (click)="flight()"><br>
+          <b>FLIGHT</b>
+        <!-- </ion-card> -->
+      </ion-col>
+      <ion-col col-3 style="padding-bottom:10px">
+        <!-- <ion-card class="profile-item grad7" (click)="flight()" style="padding:5px;height:75px;"> -->
+          <img src="../../assets/imgs/hotelbutton.png" weigh="65%;" (click)="hotel()"><br>
+          <b>HOTEL</b>
+        <!-- </ion-card> -->
+      </ion-col>
+      <ion-col col-3 style="padding-bottom:10px">
+        <!-- <ion-card class="profile-item grad7" (click)="flight()" style="padding:5px;height:75px;"> -->
+          <img src="../../assets/imgs/trainbutton.png" weigh="65%;" (click)="trainseach()"><br>
+          <b>TRAIN</b>
+        <!-- </ion-card> -->
+      </ion-col>
+      <ion-col col-3 style="padding-bottom:10px">
+        <!-- <ion-card class="profile-item grad7" (click)="flight()" style="padding:5px;height:75px;"> -->
+          <img src="../../assets/imgs/activitybutton.png" weigh="65%;" (click)="activityseach()"><br>
+          <b>ACTIVITY</b>
+        <!-- </ion-card> -->
+      </ion-col>
+      <!-- <ion-col col-6>
+        <ion-card class="profile-item grad7" (click)="hotel()" style="padding:5px;height:75px;">
+          <ion-icon name="home" style="font-size:50px;"></ion-icon><br><b>Hotel</b>
+        </ion-card>
+      </ion-col> -->
+      <ion-slides *ngIf="testi && testi.length" autoplay="4000" loop="true" speed="500" pager slidesPerView=2.5>
+        <ion-slide *ngFor="let testi of testi">
+          <div class="profile-item grad5" style="padding:5px;height:175px;">
+            <div class="profile-picture">
+              <img src="{{testi.image}}">
+            </div>
+            <p style="font-size:0.75em">{{testi.name}}</p>
+            <p style="font-size:0.5em">{{testi.testimoni}}</p>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
+  <div class="clearfix"></div>
+  <b>&nbsp;&nbsp;&nbsp;Tour Packages (Klik for Detail) : </b>
+  <br>
+  <ion-slides *ngIf="tour && tour.length" autoplay="3500" loop="true" speed="500" show-pager="false" slidesPerView=3>
+    <ion-slide *ngFor="let tour of tour">
+      <img src="{{tour.image}}" style="width:100%" (click)="showtour(tour.url)" />
+    </ion-slide>
+  </ion-slides>
+  <div class="clearfix"></div>
+  <div class="grad5">
+    <ion-slides *ngIf="foto && foto.length" autoplay="500" loop="true" speed="500" show-pager="false" slidesPerView=4>
+      <ion-slide *ngFor="let foto of foto">
+        <img src="{{foto.image}}" style="height:75px" />
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <b>&nbsp;&nbsp;&nbsp;Discount Merchant for Member : </b>
+    <br>
+    <ion-slides *ngIf="result && result.length" show-pager="false" loop="true" slidesPerView=1.25>
+      <ion-slide *ngFor="let merchant of result">
+        <img src="https://sunholidaystyle.com/img/promo/{{merchant.image}}"
+        (click)="OpenImage(merchant.name,merchant.discount,merchant.image,merchant.address,merchant.lat,merchant.lon)" style="padding-left:5px; padding-right:5px">
+      </ion-slide>
+    </ion-slides>
+    <div class="clearfix"></div>
+    <br>
+</ion-content>
