@@ -84,8 +84,13 @@
         </ion-select>
       </ion-item>
       <ion-item class="border-bottom">
-        <ion-label>Full Name</ion-label>
+        <ion-label>Nama Lengkap</ion-label>
         <ion-input [(ngModel)]="contactSegment.fullName" [ngModelOptions]="{standalone: true}" type="text" required>
+        </ion-input>
+      </ion-item>
+      <ion-item class="border-bottom">
+        <ion-label>No Tlpn (+62)</ion-label>
+        <ion-input placeholder="Cth : 82144887766" [(ngModel)]="contactSegment.tlpn" [ngModelOptions]="{standalone: true}" type="text" required>
         </ion-input>
       </ion-item>
     </ion-card>
@@ -102,17 +107,22 @@
             </ion-select>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>First Name</ion-label>
+            <ion-label>Nama Depan</ion-label>
             <ion-input [(ngModel)]="jumAdult.firstName" [ngModelOptions]="{standalone: true}" type="text" required>
             </ion-input>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Last Name</ion-label>
+            <ion-label>Nama Belakang</ion-label>
             <ion-input [(ngModel)]="jumAdult.lastName" [ngModelOptions]="{standalone: true}" type="text" required>
             </ion-input>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Birth Date</ion-label>
+            <ion-label>Nik</ion-label>
+            <ion-input [(ngModel)]="jumAdult.nik" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Tgl Lahir</ion-label>
             <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobadult"
               [max]="maxdobadult" [(ngModel)]="jumAdult.dob" [ngModelOptions]="{standalone: true}" readonly required>
             </ion-datetime>
@@ -196,12 +206,17 @@
             </ion-select>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Full Name</ion-label>
+            <ion-label>Nama Lengkap</ion-label>
             <ion-input [(ngModel)]="jumAdult.fullName" [ngModelOptions]="{standalone: true}" type="text" required>
             </ion-input>
           </ion-item>
+          <ion-item class="border-bottom">
+            <ion-label>Nik</ion-label>
+            <ion-input [(ngModel)]="jumAdult.nik" [ngModelOptions]="{standalone: true}" type="text" required>
+            </ion-input>
+          </ion-item>
           <ion-item class="border-bottom" *ngIf="dobadult === 'required'">
-            <ion-label>Birth Date</ion-label>
+            <ion-label>Tanggal Lahir</ion-label>
             <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobadult"
               [max]="maxdobadult" [(ngModel)]="jumAdult.dob" [ngModelOptions]="{standalone: true}" readonly required>
             </ion-datetime>
@@ -270,17 +285,17 @@
             </ion-select>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>First Name</ion-label>
+            <ion-label>Nama Depan</ion-label>
             <ion-input [(ngModel)]="jumChild.firstName" [ngModelOptions]="{standalone: true}" type="text" required>
             </ion-input>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Last Name</ion-label>
+            <ion-label>Nama Belakang</ion-label>
             <ion-input [(ngModel)]="jumChild.lastName" [ngModelOptions]="{standalone: true}" type="text" required>
             </ion-input>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Birth Date</ion-label>
+            <ion-label>Tanggal Lahir</ion-label>
             <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobchild"
               [max]="maxdobchild" [(ngModel)]="jumChild.dob" [ngModelOptions]="{standalone: true}" readonly required>
             </ion-datetime>
@@ -363,12 +378,12 @@
             </ion-select>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Full Name</ion-label>
+            <ion-label>Nama Lengkap</ion-label>
             <ion-input [(ngModel)]="jumChild.fullName" [ngModelOptions]="{standalone: true}" type="text" required>
             </ion-input>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Birth Date</ion-label>
+            <ion-label>Tanggal Lahir</ion-label>
             <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobchild"
               [max]="maxdobchild" [(ngModel)]="jumChild.dob" [ngModelOptions]="{standalone: true}" readonly required>
             </ion-datetime>
@@ -437,17 +452,17 @@
             </ion-select>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>First Name</ion-label>
+            <ion-label>Nama Depan</ion-label>
             <ion-input [(ngModel)]="jumInfant.firstName" [ngModelOptions]="{standalone: true}" type="text" required>
             </ion-input>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Last Name</ion-label>
+            <ion-label>Nama Belakang</ion-label>
             <ion-input [(ngModel)]="jumInfant.lastName" [ngModelOptions]="{standalone: true}" type="text" required>
             </ion-input>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Birth Date</ion-label>
+            <ion-label>Tanggal Lahir</ion-label>
             <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobinfant"
               [max]="maxdobinfant" [(ngModel)]="jumInfant.dob" [ngModelOptions]="{standalone: true}" readonly required>
             </ion-datetime>
@@ -483,12 +498,12 @@
             </ion-select>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Full Name</ion-label>
+            <ion-label>Nama Lengkap</ion-label>
             <ion-input [(ngModel)]="jumInfant.fullName" [ngModelOptions]="{standalone: true}" type="text" required>
             </ion-input>
           </ion-item>
           <ion-item class="border-bottom">
-            <ion-label>Birth Date</ion-label>
+            <ion-label>Tanggal Lahir</ion-label>
             <ion-datetime display-format="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [min]="mindobinfant"
               [max]="maxdobinfant" [(ngModel)]="jumInfant.dob" [ngModelOptions]="{standalone: true}" readonly required>
             </ion-datetime>

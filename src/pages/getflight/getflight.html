@@ -83,6 +83,11 @@
         <ion-input [(ngModel)]="contactSegment.fullName" [ngModelOptions]="{standalone: true}" type="text" required>
         </ion-input>
       </ion-item>
+      <ion-item class="border-bottom">
+        <ion-label>No Tlpn</ion-label>
+        <ion-input [(ngModel)]="contactSegment.tlpn" [ngModelOptions]="{standalone: true}" type="text" required>
+        </ion-input>
+      </ion-item>
     </ion-card>
     <ion-card *ngIf="adlt > 0">
       <ion-list *ngFor="let jumAdult of adult;let idx = index">
