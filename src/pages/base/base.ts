@@ -46,6 +46,7 @@ export class BasePage {
   app_version: any;
   versionNumber: any;
   force: any;
+  //disabled: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -198,7 +199,12 @@ export class BasePage {
       return false;
     }
   }
-
+//   AddMarker(){
+//     this.disabled="true";    
+// }
+// AddMarker2(){
+//   this.disabled=null;    
+// }
   showtour(url: any) {
     console.log(url)
     if (url === 'undefined' || url === null || url === '') {
@@ -217,4 +223,5 @@ export class BasePage {
       });
     }
   }
+
 }

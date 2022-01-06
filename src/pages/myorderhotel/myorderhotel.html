@@ -24,6 +24,7 @@
   </ion-card>
   <ion-card *ngFor="let order of dataorder" class="grad">
     <i style="color:red;font-size:50%;" item-right>&nbsp;&nbsp;{{order.bookingcode}}</i>
+    <!-- status booked -->
     <div *ngIf="order.status === 'booked'">
       <ion-item>
         <div>
@@ -94,6 +95,7 @@
       </ion-item>
       <b style="font-size: 13px;" padding>Order By : {{order.orderby}}</b>
     </div>
+     <!-- status cancel -->
     <div *ngIf="order.status === 'cancel'">
       <ion-item>
         <div>
@@ -122,6 +124,7 @@
       </ion-item>
       <b style="font-size: 13px;" padding>Order By : {{order.orderby}}</b>
     </div>
+     <!-- status checkout -->
     <div *ngIf="order.status === 'checkout'">
       <ion-item>
         <div>

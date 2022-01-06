@@ -33,6 +33,7 @@ export class MyorderhotelPage {
   dataCancelcheck: any;
   invo: any;
   etick: any;
+  disabled: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -93,7 +94,6 @@ export class MyorderhotelPage {
   getPoint(prc: any) {
     return Math.round(prc / this.konv);
   }
-
   convDate(dt: any) {
     let tgl = moment(dt).format('DD MMMM YYYY');
     return tgl;
@@ -209,6 +209,8 @@ export class MyorderhotelPage {
     let loaderpersen = this.loading.create({
       content: 'Checking Your Point…',
     });
+    /// edit neno
+    this.disabled="true"; 
     loaderpersen.present().then(() => {
       this.http.post('https://sunholidaystyle.com/api/getpoint', datapersen, optionspersen)
         .map(respoint => respoint.json())
@@ -254,6 +256,8 @@ export class MyorderhotelPage {
                       toast.present();
                       this.navCtrl.pop();
                     }
+                    // edit neno
+                    this.disabled=null; 
                   },
                     error => {
                       loader.dismiss();

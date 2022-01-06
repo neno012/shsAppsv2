@@ -29,7 +29,7 @@
   </ion-slides>
   <div class="clearfix"></div>
   <ion-grid>
-    <ion-row text-center class="grad9">
+    <ion-row text-center class="grad9" style="border-radius: 10px;">
       <ion-col col-3 style="padding-bottom:10px">
         <!-- <ion-card class="profile-item grad7" (click)="flight()" style="padding:5px;height:75px;"> -->
           <img src="../../assets/imgs/planebutton.png" weigh="65%;" (click)="flight()"><br>
@@ -48,7 +48,7 @@
           <b>TRAIN</b>
         <!-- </ion-card> -->
       </ion-col>
-      <ion-col col-3 style="padding-bottom:10px">
+      <ion-col col-3 style="padding-bottom:10px;">
         <!-- <ion-card class="profile-item grad7" (click)="flight()" style="padding:5px;height:75px;"> -->
           <img src="../../assets/imgs/activitybutton.png" weigh="65%;" (click)="activityseach()"><br>
           <b>ACTIVITY</b>
@@ -61,23 +61,30 @@
       </ion-col> -->
       <ion-slides *ngIf="testi && testi.length" autoplay="4000" loop="true" speed="500" pager slidesPerView=2.5>
         <ion-slide *ngFor="let testi of testi">
-          <div class="profile-item grad5" style="padding:5px;height:175px;">
+          <div class="profile-item grad5" style="padding:5px;height:175px; margin:5px; border-radius: 10px; ">
             <div class="profile-picture">
               <img src="{{testi.image}}">
             </div>
-            <p style="font-size:0.75em">{{testi.name}}</p>
-            <p style="font-size:0.5em">{{testi.testimoni}}</p>
+            <p style="font-size: 12px; margin: 0px;">{{testi.name}}</p>
+            <p style="font-size:0.5em; text-align: left; display: -webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp: 5; overflow: hidden;">{{testi.testimoni}}</p>
           </div>
         </ion-slide>
       </ion-slides>
     </ion-row>
   </ion-grid>
   <div class="clearfix"></div>
-  <b>&nbsp;&nbsp;&nbsp;Tour Packages (Klik for Detail) : </b>
-  <br>
+  <!-- <button ion-button [disabled]="disabled" (click)="AddMarker()">
+    Click me to disable
+    </button>
+    <button ion-button (click)="AddMarker2()">
+      Click me to enable
+      </button> -->
+  <div style="margin-top: 20px; margin-bottom: 10px;">
+    <b>&nbsp;&nbsp;&nbsp;Tour Packages (Klik for Detail) : </b>
+  </div>
   <ion-slides *ngIf="tour && tour.length" autoplay="3500" loop="true" speed="500" show-pager="false" slidesPerView=3>
     <ion-slide *ngFor="let tour of tour">
-      <img src="{{tour.image}}" style="width:100%" (click)="showtour(tour.url)" />
+      <img src="{{tour.image}}" style="width:100%; border-radius: 5px;" (click)="showtour(tour.url)" />
     </ion-slide>
   </ion-slides>
   <div class="clearfix"></div>
@@ -88,8 +95,7 @@
       </ion-slide>
     </ion-slides>
   </div>
-  <b>&nbsp;&nbsp;&nbsp;Discount Merchant for Member : </b>
-    <br>
+  <div style="margin-top: 20px; margin-bottom: 10px;"><b>&nbsp;&nbsp;&nbsp;Discount Merchant for Member : </b></div>
     <ion-slides *ngIf="result && result.length" show-pager="false" loop="true" slidesPerView=1.25>
       <ion-slide *ngFor="let merchant of result">
         <img src="https://sunholidaystyle.com/img/promo/{{merchant.image}}"
