@@ -275,7 +275,8 @@ export class Getflight2Page {
                             "title": "Mr",
                             "fullName": "",
                             "areaCode": "+62",
-                            "phone": "88804801175",
+                            // "phone": "88804801175",
+                            "phone": "",
                             "email": "itdiv.shs@gmail.com"
                           };
 

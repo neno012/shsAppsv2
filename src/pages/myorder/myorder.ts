@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, Platform, AlertController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as moment from 'moment';
@@ -48,7 +48,8 @@ export class MyorderPage {
     public loading: LoadingController,
     public toastCtrl: ToastController,
     public formBuilder: FormBuilder,
-    public platform: Platform) {
+    public platform: Platform,
+    public alertCtrl: AlertController) {
     //this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
 
     //this.todayDate = new Date();
@@ -102,6 +103,28 @@ export class MyorderPage {
             this.reSearch1();
           });
     });
+  }
+
+  showPrompt() {
+    const prompt = this.alertCtrl.create({
+      title: 'Use this lightsaber?',
+      message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            console.log('Agree clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
   getPoint(prc: any) {

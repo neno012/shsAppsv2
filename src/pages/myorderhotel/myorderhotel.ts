@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, Platform ,AlertController} from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as moment from 'moment';
@@ -40,7 +40,8 @@ export class MyorderhotelPage {
     public http: Http,
     public loading: LoadingController,
     public toastCtrl: ToastController,
-    public platform: Platform) {
+    public platform: Platform,
+    public alertCtrl: AlertController) {
     //this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.todayDate = momenttimezone.tz('Asia/Jakarta').format('YYYY-MM-DD HH:mm:ss');
     this.konv = localStorage.getItem('seskonv');
@@ -515,6 +516,28 @@ export class MyorderhotelPage {
             toast.present();
           });
     });
+  }
+
+  showPrompt(orderid:any) {
+    const prompt = this.alertCtrl.create({
+      title: 'Konfirmasi',
+      message: 'Apakah anda yakin untuk membatalkan order hotel ini , point anda akan tetap terpotong !',
+      buttons: [
+        {
+          text: 'Kembali',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Lanjutkan',
+          handler: () => {
+            this.delcheckOrder(orderid);
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
 }

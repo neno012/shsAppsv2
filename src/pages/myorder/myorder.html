@@ -99,6 +99,7 @@
         </div>
       </div>
     </div>
+    <!-- flight order -->
     <div *ngIf="order.result.all_order_type === 'flight'">
       <i style="color:red;font-size:50%;" item-right>&nbsp;&nbsp;{{order.result.order_id}}</i>
       <div *ngFor="let result of order.result.order__cart_detail">
@@ -233,6 +234,7 @@
                         {{result.detail.order_expire_datetime | date: "d MMM yyyy HH:mm:ss"}}
                         GMT+7(WIB)</b><br><b style="color:red">EXPIRED</b></ion-icon>
                   </button>
+                  <!-- <button ion-button (click)="showPrompt()">Default</button> -->
                 </div>
                 <div *ngIf="result.detail.order_expire_datetime > todayDate ">
                   <button ion-button color="shscolor" outline full padding style="font-size:100%;">
