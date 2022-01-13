@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget Android-versionCode="201018" id="com.sunholidaystyle.shs" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget Android-versionCode="201018" id="com.sunholidaystyle.shs" version="2.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>SUN Holiday Style</name>
     <description>Designing your HOLIDAY with STYLE</description>
     <author email="divit.shs@gmail.com" href="https://www.sunholidaystyle.com/">D-NY</author>

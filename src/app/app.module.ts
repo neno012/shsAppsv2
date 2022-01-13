@@ -103,6 +103,7 @@ import { ShowairportPageModule } from '../pages/showairport/showairport.module';
 import { DiscountPageModule } from '../pages/discount/discount.module';
 import { ShowimagePageModule } from '../pages/showimage/showimage.module';
 import { MyprofilePageModule } from '../pages/myprofile/myprofile.module';
+import { PrivacyPageModule } from '../pages/privacy/privacy.module';
 
 //test page
 import { TesautocompletePageModule } from '../pages/tesautocomplete/tesautocomplete.module';
@@ -123,6 +124,7 @@ import { TrainresultPageModule } from '../pages/trainresult/trainresult.module';
 //activity
 import { ActivitysearchPageModule } from '../pages/activitysearch/activitysearch.module';
 import { ActivityresultPageModule } from '../pages/activityresult/activityresult.module';
+import { PrivacyPage } from '../pages/privacy/privacy';
 
 
 
@@ -180,7 +182,8 @@ import { ActivityresultPageModule } from '../pages/activityresult/activityresult
     TrainresultPageModule,
     ActivitysearchPageModule,
     ActivityresultPageModule,
-    MyprofilePageModule
+    MyprofilePageModule,
+    PrivacyPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -228,7 +231,8 @@ import { ActivityresultPageModule } from '../pages/activityresult/activityresult
     TrainresultPage,
     ActivitysearchPage,
     ActivityresultPage,
-    MyprofilePage
+    MyprofilePage,
+    PrivacyPage
   ],
   providers: [
     StatusBar,

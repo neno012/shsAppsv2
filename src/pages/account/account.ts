@@ -12,6 +12,7 @@ import { HispointPage } from '../../pages/hispoint/hispoint';
 import { SettingsPage } from '../../pages/settings/settings';
 import { ShscardPage } from '../../pages/shscard/shscard';
 import { MyprofilePage } from '../myprofile/myprofile';
+import { PrivacyPage } from '../privacy/privacy';
 
 /**
  * Generated class for the AccountPage page.
@@ -95,6 +96,10 @@ export class AccountPage {
 
   settings() {
     this.navCtrl.push(SettingsPage);
+  }
+
+  privacy() {
+    this.navCtrl.push(PrivacyPage);
   }
 
   loginpage() {
