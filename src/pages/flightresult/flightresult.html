@@ -41,10 +41,9 @@
       </h3>
     </ion-item>
     <div ion-item (click)="toggleGroup(i)" [ngClass]="{active: isGroupShown(i)}" style="margin-top:-3%;">
-      <b style="color:#ff6600;">{{getPoint(result.fareDetail.fares[0].totalFare.total)}} Point</b>
+      <b style="color:#ff6600;">{{getPoint(result.fareDetail.fares[0].adultFare.total)}} Point / Pax</b>
       <img src="../../assets/imgs/detail.png" style="width:5%;" item-end>
     </div>
-
     <ion-list radio-group [(ngModel)]="itemFamily" *ngIf="isGroupShown(i)">
       <ion-item *ngFor="let flight_info of result.schedules">
         <ion-avatar item-start>

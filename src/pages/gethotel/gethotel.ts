@@ -155,7 +155,7 @@ export class GethotelPage {
                     ratekey : this.jsonhotelbookable.ratekey
                   };
                   let loader = this.loading.create({
-                    content : 'Getting Your Hotel, Please Wait…',
+                    content : 'Mendapatkan Hotel Anda, Mohon di tunggu…',
                   });
                   console.log(data);
                   loader.present().then(() => {
@@ -181,7 +181,7 @@ export class GethotelPage {
                     ratekey: this.jsonhotel.ratekey
                   };
                   let loader = this.loading.create({
-                    content: 'Getting Your Hotel, Please Wait…',
+                    content: 'Mendapatkan Hotel Anda, Mohon di tunggu…',
                   });
                   console.log(data);
                   loader.present().then(() => {
@@ -205,7 +205,7 @@ export class GethotelPage {
                           loader.dismiss();
                           console.log(error);
                           let toast = this.toastCtrl.create({
-                            message   : 'Sorry, Internal Server Error, Please Try Again',
+                            message   : 'Maaf, Internal Server Error, Tolong Coba lagi...',
                             duration  : 3000,
                             position  : 'middle',
                             cssClass  : 'toastError'
@@ -217,7 +217,7 @@ export class GethotelPage {
                 }
               } else {
                 let toast = this.toastCtrl.create({
-                  message   : 'Sorry, Your Payment Under 50%, Please Make A Payment Above 50%',
+                  message   : 'Maaf, Pembayaran Anda di bawah 50%, Tolong Lakukan pembayaran sampai 50%',
                   duration  : 3000,
                   position  : 'middle',
                   cssClass  : 'toastWarning'
@@ -227,7 +227,7 @@ export class GethotelPage {
               }
             } else {
               let toast = this.toastCtrl.create({
-                message   : 'Sorry, Data not Loaded',
+                message   : 'Maaf, Data tidak termuat',
                 duration  : 3000,
                 position  : 'middle',
                 cssClass  : 'toastWarning'
@@ -240,7 +240,7 @@ export class GethotelPage {
               loaderpersen.dismiss();
               console.log(error);
               let toast = this.toastCtrl.create({
-                message   : 'Sorry, Internal Server Error, Please Try Again',
+                message   : 'Maaf, Internal Server Error, Tolong coba lagi',
                 duration  : 3000,
                 position  : 'middle',
                 cssClass  : 'toastError'
@@ -306,7 +306,7 @@ export class GethotelPage {
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });
     let loader = this.loading.create({
-      content: 'Checkout Your Hotel, Please Wait…',
+      content: 'Checkout Hotel anda, Mohon tunggu…',
     });
     console.log(this.allData[0]);
     loader.present().then(() => {
@@ -321,7 +321,7 @@ export class GethotelPage {
             const alert = this.alertCtrl.create({
               cssClass: 'alertDanger',
               title: '<center>Success</center>',
-              message: 'Success, Your Hotel Has Been Checkout, Please Check Your Order To Issued',
+              message: 'Success, Hotel anda sudah tercheckout, Mohon cek Order untuk Issued',
               buttons: [{
                   text: 'Continue to Issued',
                   handler: () => {
@@ -333,7 +333,7 @@ export class GethotelPage {
             //this.appCtrl.getRootNavById('n4');
           } else {
             let toast = this.toastCtrl.create({
-              message: 'Sorry, Internal Server Error, Please Try Again',
+              message: 'Maaf, Internal Server Error, Mohon coba lagi',
               duration: 3000,
               position: 'middle',
               cssClass: 'toastError'
@@ -346,7 +346,7 @@ export class GethotelPage {
             loader.dismiss();
             console.log(error);
             let toast = this.toastCtrl.create({
-              message: 'Sorry, Internal Server Error, Please Try Again',
+              message: 'Maaf, Internal Server Error, Mohon coba lagi',
               duration: 3000,
               position: 'middle',
               cssClass: 'toastError'

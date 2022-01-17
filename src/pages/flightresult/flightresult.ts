@@ -49,7 +49,7 @@ export class FlightresultPage {
 
     if (this.jsonflight.data.searchList.departureFlights.length === 0) {
       let toast = this.toastCtrl.create({
-        message: 'Sorry, Please Try Your Search Again',
+        message: 'Maaf, Silakan Coba Cari Lagi',
         duration: 3000,
         position: 'middle',
         cssClass: 'toastWarning'
@@ -122,7 +122,7 @@ export class FlightresultPage {
         console.log(this.jsonflight)
         if (this.jsonflight.data.searchList.departureFlights.length === 0) {
           let toast = this.toastCtrl.create({
-            message: 'Sorry, Please Try Your Search Again',
+            message: 'Maaf, Silakan Coba Cari Lagi',
             duration: 3000,
             position: 'middle',
             cssClass: 'toastWarning'
@@ -152,7 +152,7 @@ export class FlightresultPage {
           event.complete();
           console.log(error);
           let toast = this.toastCtrl.create({
-            message: 'Sorry, Internal Server Error, Please Try Again',
+            message: 'Maaf, Internal Server Error, Silakan Coba Lagi',
             duration: 3000,
             position: 'middle',
             cssClass: 'toastError'

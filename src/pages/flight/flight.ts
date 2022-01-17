@@ -106,7 +106,7 @@ export class FlightPage {
     this.minDatedep = moment(this.datedep).format();
     this.maxDatedep = moment(this.datedep).add(365, 'days').format();
     let loader2 = this.loading.create({
-      content: 'Loading data…',
+      content: 'Mencari Penerbangan…',
     });
     localStorage.removeItem('sestkn');
     this.http.get('https://sunholidaystyle.com/api/gettokenv2')
@@ -117,7 +117,7 @@ export class FlightPage {
         loader2.dismiss()
         if (this.tkn.status === 0) {
           let toast = this.toastCtrl.create({
-            message: 'Sorry, Data not loaded, Please Try Again',
+            message: 'Maaf, Data tidak tersedia, Mohon Coba lagi',
             duration: 3000,
             position: 'middle',
             cssClass: 'toastError'
@@ -132,7 +132,7 @@ export class FlightPage {
           loader2.dismiss();
           console.log(error);
           let toast = this.toastCtrl.create({
-            message: 'Sorry, Internal Server Error, Please Try Again',
+            message: 'Maaf, Internal Server Error, Mohon Coba Lagi',
             duration: 3000,
             position: 'middle',
             cssClass: 'toastError'
@@ -306,7 +306,7 @@ export class FlightPage {
   flightSearch() {
     if (this.dep === this.arr) {
       let toast = this.toastCtrl.create({
-        message: 'Sorry, Departure city and destination city must be different',
+        message: 'Maaf, Kota Asal dan Kota Tujuan Harus Berbeda',
         duration: 3000,
         position: 'middle',
         cssClass: 'toastWarning'
@@ -314,7 +314,7 @@ export class FlightPage {
       toast.present();
     } else if (this.dep === '' || this.dep === null) {
       let toast = this.toastCtrl.create({
-        message: 'Sorry, Please select airport departure and destination',
+        message: 'Maaf, Mohon Masukkan Bandara Asal dan Tujuan',
         duration: 3000,
         position: 'middle',
         cssClass: 'toastWarning'
@@ -322,7 +322,7 @@ export class FlightPage {
       toast.present();
     } else if (this.arr === '' || this.arr === null) {
       let toast = this.toastCtrl.create({
-        message: 'Sorry, Please select airport departure and destination',
+        message: 'Maaf, Mohon Masukkan Bandara Asal dan Tujuan',
         duration: 3000,
         position: 'middle',
         cssClass: 'toastWarning'
@@ -331,7 +331,7 @@ export class FlightPage {
     } else {
       if (this.adult < this.infant) {
         let toast = this.toastCtrl.create({
-          message: 'Sorry, Number of infants no more than number of adults',
+          message: 'Maaf, Jumlah Penumpang Bayi Tidak Boleh Lebih Dari Jumlah Penumpang Dewasa',
           duration: 3000,
           position: 'middle',
           cssClass: 'toastWarning'
@@ -339,7 +339,7 @@ export class FlightPage {
         toast.present();
       } else if ((parseInt(this.adult) + parseInt(this.child)) > 7) {
         let toast = this.toastCtrl.create({
-          message: 'Sorry, Total adults and childs more than of 7 passangers',
+          message: 'Maaf, Jumlah orang dewasa dan anak-anak lebih dari 7 penumpang',
           duration: 3000,
           position: 'middle',
           cssClass: 'toastWarning'
@@ -372,7 +372,7 @@ export class FlightPage {
           token: localStorage.getItem('sestkn')
         };
         let loader = this.loading.create({
-          content: 'Searching Your Flight…',
+          content: 'Mencari Penerbangan…',
         });
         console.log(data)
         //console.log(this.datedep)
@@ -397,7 +397,7 @@ export class FlightPage {
               this.flightData = JSON.parse(JSON.stringify(res));
               if (res.status === 0) {
                 let toast = this.toastCtrl.create({
-                  message: 'Sorry, Your Flight Not Available, Please Try Again',
+                  message: 'Maaf, Penerbangan Anda Tidak Tersedia, Silakan Coba Lagi',
                   duration: 3000,
                   position: 'middle',
                   cssClass: 'toastError'
@@ -406,7 +406,7 @@ export class FlightPage {
                 loader.dismiss();
               } else if (res === null) {
                 let toast = this.toastCtrl.create({
-                  message: 'Sorry, Your Flight Not Available, Please Try Again',
+                  message: 'Maaf, Penerbangan Anda Tidak Tersedia, Silakan Coba Lagi',
                   duration: 3000,
                   position: 'middle',
                   cssClass: 'toastError'
@@ -418,7 +418,7 @@ export class FlightPage {
                 loader.dismiss()
                 if (this.flightData.data.searchList.departureFlights.length === 0) {
                   let toast = this.toastCtrl.create({
-                    message: 'Sorry, Your Flight Not Available, Please Try Again',
+                    message: 'Maaf, Penerbangan Anda Tidak Tersedia, Silakan Coba Lagi',
                     duration: 3000,
                     position: 'middle',
                     cssClass: 'toastWarning'
@@ -435,7 +435,7 @@ export class FlightPage {
                 loader.dismiss();
                 console.log(error);
                 let toast = this.toastCtrl.create({
-                  message: 'Sorry, Internal Server Error, Please Try Again',
+                  message: 'Maaf, Internal Server Error, Silakan Coba Lagi',
                   duration: 3000,
                   position: 'middle',
                   cssClass: 'toastError'

@@ -85,7 +85,7 @@ export class Getflight2Page {
 
     if (localStorage.getItem('sesidman') === null || localStorage.getItem('sesidman') === '') {
       let toast = this.toastCtrl.create({
-        message: 'Sorry, Please Login First',
+        message: 'Maaf, Silahkan Login Terlebih Dahulu',
         duration: 3000,
         position: 'middle'
       });
@@ -100,7 +100,7 @@ export class Getflight2Page {
         idman: localStorage.getItem('sesidman')
       };
       let loaderpersen = this.loading.create({
-        content: 'Checking Your Point…',
+        content: 'Memeriksa Poin Anda…',
       });
       loaderpersen.present().then(() => {
         this.http.post('https://sunholidaystyle.com/api/getpoint', datapersen, optionspersen)
@@ -134,7 +134,7 @@ export class Getflight2Page {
                   token: localStorage.getItem('sertoken')
                 };
                 let loader = this.loading.create({
-                  content: 'Getting Your Flight, Please Wait…',
+                  content: 'Mendapatkan Penerbangan Anda, Harap Tunggu…',
                 });
                 console.log(data);
                 loader.present().then(() => {
@@ -151,7 +151,7 @@ export class Getflight2Page {
                       if (Math.round(this.totalPrice / this.konv) > this.nowPoint) {
                         loader.dismiss();
                         let toast = this.toastCtrl.create({
-                          message: 'Sorry, Your Point Is Not Enough, Please Top Up Your Point',
+                          message: 'Maaf Point Anda Tidak Cukup, Silahkan Top Up Point Anda',
                           duration: 3000,
                           position: 'middle',
                           cssClass: 'toastWarning'
@@ -455,7 +455,7 @@ export class Getflight2Page {
                         } else if (this.flightData.status === 0) {
                           loader.dismiss();
                           let toast = this.toastCtrl.create({
-                            message: 'Sorry, Internal Server Error, Please Try Again',
+                            message: 'Maaf, Internal Server Error, Silakan Coba lagi..',
                             duration: 3000,
                             position: 'middle',
                             cssClass: 'toastWarning'
@@ -469,7 +469,7 @@ export class Getflight2Page {
                         loader.dismiss();
                         console.log(error);
                         let toast = this.toastCtrl.create({
-                          message: 'Sorry, Internal Server Error, Please Try Again',
+                          message: 'Maaf, Internal Server Error, Silakan Coba lagi..',
                           duration: 3000,
                           position: 'middle',
                           cssClass: 'toastError'
@@ -480,7 +480,7 @@ export class Getflight2Page {
                 });
               } else {
                 let toast = this.toastCtrl.create({
-                  message: 'Sorry, Your Payment Under 50%, Please Make A Payment Above 50%',
+                  message: 'Maaf Pembayaran Anda Di Bawah 50%, Silahkan Lakukan Pembayaran Di Atas 50%',
                   duration: 3000,
                   position: 'middle',
                   cssClass: 'toastWarning'
@@ -490,7 +490,7 @@ export class Getflight2Page {
               }
             } else {
               let toast = this.toastCtrl.create({
-                message: 'Sorry, Data not Loaded',
+                message: 'Maaf, Data Tidak Dimuat',
                 duration: 3000,
                 position: 'middle',
                 cssClass: 'toastWarning'
@@ -503,7 +503,7 @@ export class Getflight2Page {
               loaderpersen.dismiss();
               console.log(error);
               let toast = this.toastCtrl.create({
-                message: 'Sorry, Internal Server Error, Please Try Again',
+                message: 'Maaf, Internal Server Error, Silakan Coba Lagi..',
                 duration: 3000,
                 position: 'middle',
                 cssClass: 'toastError'
@@ -577,7 +577,7 @@ export class Getflight2Page {
             loader.dismiss();
             console.log(error);
             let toast = this.toastCtrl.create({
-              message: 'Sorry, Internal Server Error, Please Try Again',
+              message: 'Maaf, Internal Server Error, Silakan Coba Lagi..',
               duration: 3000,
               position: 'middle',
               cssClass: 'toastError'

@@ -171,7 +171,7 @@ export class HotelPage {
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });
     let loader = this.loading.create({
-      content: 'Searching Your Hotel…',
+      content: 'Sedang Mencari Hotel…',
     });
     loader.present().then(() => {
       this.http.post('https://sunholidaystyle.com/api/hb/gethotels', this.allData[0], options)
@@ -183,7 +183,7 @@ export class HotelPage {
           this.hotelData = JSON.parse(JSON.stringify(res));
           if (res.status === 0) {
             let toast = this.toastCtrl.create({
-              message: 'Sorry, Your Hotel Not Available, Please Try Again',
+              message: 'Maaf, Hotel tidak tersedia, Mohon coba lagi atau hubungi reservasi',
               duration: 3000,
               position: 'middle',
               cssClass: 'toastError'
@@ -192,7 +192,7 @@ export class HotelPage {
             loader.dismiss();
           } else if (res === null) {
             let toast = this.toastCtrl.create({
-              message: 'Sorry, Your Hotel Not Available, Please Try Again',
+              message: 'Maaf, Hotel tidak tersedia, Mohon coba lagi atau hubungi reservasi',
               duration: 3000,
               position: 'middle',
               cssClass: 'toastError'
@@ -211,7 +211,7 @@ export class HotelPage {
             loader.dismiss();
             console.log(error);
             let toast = this.toastCtrl.create({
-              message: 'Sorry, Internal Server Error, Please Try Again',
+              message: 'Maaf, Internal Server Error, Mohon coba lagi',
               duration: 3000,
               position: 'middle',
               cssClass: 'toastError'
