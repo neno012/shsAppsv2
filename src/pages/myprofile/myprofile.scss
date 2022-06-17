@@ -1,19 +1,41 @@
 page-myprofile {
-    .header .col {
-        background-color: lightgrey;
-      }
-    
-      .col {
-        border: solid 1px grey;
-        border-right-style: none;
-      }
-    
-      .col:last-child {
-        border-right: solid 1px grey;
-      }
-    
-      .row:last-child .col {
-        border-bottom: solid 1px grey;
-      }
+  .header .col {
+    background-color: lightgrey;
+  }
 
+  .col {
+    border: none;
+  }
+
+  .col:last-child {
+    border-right: none;
+  }
+
+  .row:last-child .col {
+    border-bottom: none;
+  }
+  .row:nth-child(2n+1){
+    background-color: #f4f4f4;
+  }
+  ion-grid {
+    b {
+      text-transform: uppercase;
+    }
+  }
+  .label-md {
+    margin: 8px 8px 8px 0;
+  }
+  .item-md:nth-child(2n+1){
+    background-color: #f4f4f4;
+  }
+  .item-md {
+    h2 {
+      font-weight: 500;
+      white-space: normal;
+      text-transform: uppercase;
+    }
+    h3 {
+      margin-top: 0.2rem !important;
+    }
+  }
 }
