@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { DetailfeepaymentPage } from '../../pages/detailfeepayment/detailfeepayment';
+// import { DetailfeepaymentPage } from '../../pages/detailfeepayment/detailfeepayment';
 
 /**
  * Generated class for the FeepaymentPage page.

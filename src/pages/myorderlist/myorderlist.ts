@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { MyorderPage } from '../../pages/myorder/myorder';
 import { MyorderhotelPage } from '../../pages/myorderhotel/myorderhotel';
-import { FlightresultfilterPage } from '../flightresult/flightresultfilter/flightresultfilter';
+// import { FlightresultfilterPage } from '../flightresult/flightresultfilter/flightresultfilter';
 /**
  * Generated class for the MyorderlistPage page.
  *
