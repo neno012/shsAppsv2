@@ -61,7 +61,8 @@ export class ShowhotelPage {
       querysrc: this.hotelName
     };
     console.log(data)
-    this.http.post('https://sunholidaystyle.com/api/hb/datahotels', data, options)
+    //this.http.post('https://sunholidaystyle.com/api/hb/datahotels', data, options)
+    this.http.post('https://sunholidaystyle.com/api/traveloka/datahotels', data, options)
       .map(res => res.json())
       .subscribe(res => {
         //console.log(res)
